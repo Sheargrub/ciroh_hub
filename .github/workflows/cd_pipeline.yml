@@ -55,13 +55,16 @@ jobs:
           git checkout -b temp-deploy-branch-$VERSION
 
         # Determine if this is a staging or production deployment
+        # NOTE: Since we don't have a production repo set, production deployment will
+        # fail for now. Edit TARGET_REPO to fix.
       - name: Set deployment target
         id: deployment-target
         run: |
           if [[ "$DEPLOY_ENV" == "production" ]]; then
             echo "ENVIRONMENT=production" >> $GITHUB_ENV
-            echo "TARGET_REPO=CIROH-UA/ciroh-ua.github.io" >> $GITHUB_ENV
+            echo "TARGET_REPO=tbd" >> $GITHUB_ENV
             echo "Deploying to PRODUCTION environment"
+            echo "(FIXME: No target repo available, the next few steps will likely fail!)"
           else
             echo "ENVIRONMENT=staging" >> $GITHUB_ENV
             echo "TARGET_REPO=CIROH-UA/docuhub-staging" >> $GITHUB_ENV
