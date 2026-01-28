@@ -2,9 +2,6 @@ import { themes as prismThemes } from "prism-react-renderer";
 import dotenv from 'dotenv';
 
 dotenv.config();
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const baseUrl = "/";
 
