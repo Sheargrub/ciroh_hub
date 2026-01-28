@@ -55,23 +55,38 @@ jobs:
           git checkout -b temp-deploy-branch-$VERSION
 
         # Determine if this is a staging or production deployment
+        # NOTE: Since we don't have a production repo set, production deployment will
+        # fail for now. Edit TARGET_REPO to fix.
       - name: Set deployment target
         id: deployment-target
         run: |
           if [[ "$DEPLOY_ENV" == "production" ]]; then
             echo "ENVIRONMENT=production" >> $GITHUB_ENV
-            echo "TARGET_REPO=CIROH-UA/ciroh-ua.github.io" >> $GITHUB_ENV
+            echo "TARGET_REPO=tbd" >> $GITHUB_ENV
             echo "Deploying to PRODUCTION environment"
+            echo "(FIXME: No target repo available, the next few steps will likely fail!)"
           else
             echo "ENVIRONMENT=staging" >> $GITHUB_ENV
-            echo "TARGET_REPO=CIROH-UA/docuhub-staging" >> $GITHUB_ENV
+            echo "TARGET_REPO=CIROH-UA/ciroh_hub_staging" >> $GITHUB_ENV
             echo "Deploying to STAGING environment"
           fi
 
-      - name: GitHub Pages deployment
+      # Might be possible to merge these into one function,
+      # but don't want to chance insecure handling of secrets.
+      - name: GitHub Pages deployment to staging
         uses: JamesIves/github-pages-deploy-action@v4.6.1
+        if: env.ENVIRONMENT == "staging"
         with:
-          token: ${{ secrets.SECRET_TO_PUSH_TO_CIROH_GITHUB_IO }}
+          token: ${{ secrets.GH_STAGING_TOKEN }}
+          branch: main
+          folder: build
+          repository-name: ${{ env.TARGET_REPO }}
+
+      - name: GitHub Pages deployment to production
+        uses: JamesIves/github-pages-deploy-action@v4.6.1
+        if: env.ENVIRONMENT == "production"
+        with:
+          token: ${{ secrets.GH_PRODUCTION_TOKEN }}
           branch: main
           folder: build
           repository-name: ${{ env.TARGET_REPO }}
