@@ -29,7 +29,7 @@ export default function DatasetsPage() {
       </div>
       <div className="margin-top--md">
         <Header 
-            title="Datasets" 
+            title="Data" 
             tagline="Datasets from CIROH and NOAA's hydrologic research, designed to enhance forecasting, analysis, and management of water resources."
             buttons={[
               { label: "Add your Dataset", href: contributeUrl, primary: true },
