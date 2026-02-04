@@ -7,25 +7,37 @@ const team = [
   {
     name: "Arpita Patel",
     role: "Assistant Director of DevOps and IT",
-    image: "/img/teamMember1.png",
+    image: "/img/profiles/Arpita_Patel.png",
     linkedin: "https://www.linkedin.com/in/example-arpita"
   },
   {
     name: "Benjamin Lee",
     role: "DevOps Engineer",
-    image: "/img/teamMember2.png",
+    image: "/img/profiles/Ben_Lee.png",
     linkedin: "https://www.linkedin.com/in/example-benjamin"
+  },
+  {
+    name: "Giovanni Romero",
+    role: "HydroInfomatics Engineer",
+    image: "/img/profiles/Giovanni_Romero.png",
+    linkedin: "https://www.linkedin.com/in/elkin-giovanni-romero-bustamante-b834b5a8/"
+  },
+  {
+    name: "Nathan Swain",
+    role: "Project Engineer at Aquaveo",
+    image: "/img/profiles/Nathan_Swain.jpeg",
+    linkedin: "https://www.linkedin.com/in/nathanswain/"
   },
   {
     name: "Manjila Singh",
     role: "Graduate Research Assistant",
-    image: "/img/teamMember4.png",
+    image: "/img/profiles/Manjila_Singh.png",
     linkedin: "https://www.linkedin.com/in/example-manjila"
   },
   {
     name: "Prajwal Halalae",
     role: "Undergraduate Research Intern",
-    image: "/img/PrajwalHalalae.jpg",
+    image: "/img/profiles/Prajwal_Halalae.jpg",
     linkedin: "https://www.linkedin.com/in/prajwal-nh/"
   },
   {
@@ -33,20 +45,22 @@ const team = [
     role: "Graduate Research Assistant",
     image: null,
     initial: "NM",
-    linkedin: "https://www.linkedin.com/in/example-nia"
+    linkedin: ""
   },
+  {
+    name: "James Dolinar",
+    role: "Software Engineer at Aquaveo",
+    image: null,
+    initial: "JD",
+    linkedin: ""
+  }, 
   {
     name: "Zimuzo Ernest-Eze",
     role: "Undergraduate Student Assistant",
-    image: "/img/teamMember6.png",
+    image: "/img/profiles/Zimuzo_Ernest.png",
     linkedin: "https://www.linkedin.com/in/example-zimuzo"
   }, 
-  {
-    name: "Giovanni Romero",
-    role: "HydroInfomatics Engineer",
-    image: "/img/Giovanni-Romero.png",
-    linkedin: "https://www.linkedin.com/in/elkin-giovanni-romero-bustamante-b834b5a8/"
-  },
+  
 ];
 
 export default function TeamMembers() {
