@@ -8,6 +8,7 @@ import "./cta-1.css";
 import styles from "./styles.module.css";
 import "./whyDocuhub.css";
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import ResearcherTestimonials from './testimonial';
 import TeamMembers from './teamMembers';
 import PrincipalInvestigators from './principalInvestigators';
@@ -761,7 +762,7 @@ export default function HomepageFeatures() {
 
             <div className="image-container tw-lg:w-2/6 tw-md:w-3/6 tw-w-5/6 tw-mb-16 tw-rounded-2xl tw-shadow-2xl tw-animate-fade-in-scale">
               <img
-                src="https://dummyimage.com/720x600/3b82f6/ffffff&text=Research+Innovation"
+                src={useBaseUrl("/img/graphics/OurResearch.png")}
                 alt="research hero"
                 className="tw-w-full tw-object-cover tw-object-center tw-rounded-2xl"
               />

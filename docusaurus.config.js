@@ -13,7 +13,7 @@ const config = {
   url: "http://ciroh.org",
   baseUrl: baseUrl,
   onBrokenLinks: "ignore",
-  favicon: "img/logos/docuhub.png",
+  favicon: "img/logos/CIROH_Hub_logo.png",
 
   customFields: {
     apiBaseUrl:
