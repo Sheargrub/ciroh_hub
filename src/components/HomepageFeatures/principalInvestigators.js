@@ -32,12 +32,12 @@ const investigators = [
   },
   {
     name: "Dan Ames",
-    role: "Turning Research into Actionable Information for Operational Impact by Advancing NOAA's National Cyberinfrastructure, CIROH Portal, and Web and Mobile Apps",
+    role: "Turning Research into Actionable Information for Operational Impact by Advancing NOAA's National Cyberinfrastructure, CIROH Portal, and Web and Mobile Apps",
     image: "/img/profiles/Dan_Ames.jpg",
     initial: "DA",
     link: "https://cce.byu.edu/directory/dan-ames",
     orgName: "Brigham Young University",
-    orgLogo: "https://th.bing.com/th/id/R.f1cb7dee44fd82870c0e58ba859a078e?rik=opVcBH5Lqtyl9w&riu=http%3a%2f%2flogonoid.com%2fimages%2fbyu-logo.png&ehk=9Ob%2bcxsV7xRkYYmzuKx0ac0w3A3TELDo4ETKBjdbhiI%3d&risl=&pid=ImgRaw&r=0",
+    orgLogo: "/img/logos/uni/byu.png",
   },
   {
     name: "Jeffrey C. Carver",
