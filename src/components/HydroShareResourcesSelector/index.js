@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 import HydroShareResourcesTiles from "@site/src/components/HydroShareResourcesTiles";
 import HydroShareResourcesRows from "@site/src/components/HydroShareResourcesRows";
 import HydroShareResourcesCards from "@site/src/components/HydroShareResourcesCards";
-import { fetchResourcesBySearch, fetchResourceCustomMetadata } from "@site/src/components/HydroShareImporter";
+import { fetchResourcesBySearch, fetchResourceCustomMetadata, getCommunityResources } from "@site/src/components/HydroShareImporter";
 import { useColorMode } from "@docusaurus/theme-common"; // Hook to detect theme
 import DatasetLightIcon from '@site/static/img/cards/datasets_logo_light.png';
 import DatasetDarkIcon from '@site/static/img/cards/datasets_logo_dark.png';
@@ -89,7 +89,16 @@ export default function HydroShareResourcesSelector({
 
         // Start data fetching (while placeholders are already rendered)
         const ascending = sortDirection === 'asc' ? true : false;
-        resourceList = await fetchResourcesBySearch(keyword, filterSearch, ascending, sortType, undefined, page);
+        
+        // For datasets, use getCommunityResources which combines group and keyword resources
+        let communityResponse = null;
+        if (keyword.includes('data')) {
+          const firstKeyword = keyword.split(',')[0].trim();
+          communityResponse = await getCommunityResources(firstKeyword, "4", filterSearch, ascending, sortType, undefined, page, PAGE_SIZE);
+          resourceList = communityResponse.resources || [];
+        } else {
+          resourceList = await fetchResourcesBySearch(keyword, filterSearch, ascending, sortType, undefined, page);
+        }
 
         const mappedList = resourceList.map((res) => ({
           resource_id: res.resource_id,
@@ -119,7 +128,13 @@ export default function HydroShareResourcesSelector({
         }
         
         // Update hasMore based on API response
-        setHasMore(mappedList.length === PAGE_SIZE);
+        if (communityResponse) {
+          // For datasets using getCommunityResources
+          setHasMore(communityResponse.groupResourcesPageData?.hasMorePages || communityResponse.extraResourcesPageData?.hasMorePages || false);
+        } else {
+          // For other resources using fetchResourcesBySearch
+          setHasMore(mappedList.length === PAGE_SIZE);
+        }
         setLoading(false);
 
         // Fetch metadata for each resource and update them individually
