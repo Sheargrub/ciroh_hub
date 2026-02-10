@@ -9,7 +9,7 @@ export default function ContributeCallout() {
     <div className={styles.container}>
       <div className={styles.callout}>
         <h2 className={styles.title}>
-          Share Your Research Product with the Community
+          Share Your Resource with the Community
         </h2>
         <p className={styles.description}>
           Have a hydrologic tool, model, or software you'd like to share? Add your product to this collection 
