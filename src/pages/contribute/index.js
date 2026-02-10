@@ -142,7 +142,7 @@ export default function Contribute() {
             </div>
 
             <div className={styles.zoteroActions} style={{ marginTop: '2rem' }}>
-              <a href={addProductUrl} target="_blank" rel="noreferrer noopener" className={styles.zoteroButton}>
+              <a href={addProductUrl} target="_blank" rel="noreferrer noopener" className={styles.zoteroButton} style={{ background: "var(--ifm-color-primary-light)" }}>
                 Submit Your Product Documentation
               </a>
               <a href={contactUrl} className={styles.zoteroButton} style={{ marginLeft: '1rem', background: '#6c757d' }}>
