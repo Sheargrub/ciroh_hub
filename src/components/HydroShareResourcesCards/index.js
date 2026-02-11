@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { LiaExternalLinkSquareAltSolid } from 'react-icons/lia';
 import { FaGraduationCap } from 'react-icons/fa';
 import { IoTvOutline } from 'react-icons/io5';
@@ -40,8 +40,24 @@ function ActionLink({ href, title, children }) {
     );
 }
 
+function ActionButton({ onClick, title, children }) {
+    return (
+        <button
+            type="button"
+            onClick={onClick}
+            title={title}
+            className="tw-inline-flex tw-items-center tw-justify-center tw-rounded-md tw-border tw-border-white/20 tw-bg-white/15 tw-p-2 tw-text-white hover:tw-text-cyan-300 dark:tw-border-slate-600 dark:tw-bg-slate-700/50 dark:tw-text-slate-300 dark:hover:tw-text-cyan-300 hover:tw-bg-white/25 dark:hover:tw-bg-slate-700 hover:tw-border-cyan-400 dark:hover:tw-border-cyan-500/40 tw-transition tw-shadow-sm hover:tw-shadow-md"
+        >
+            {children}
+        </button>
+    );
+}
+
 function ResourceCard({ resource, defaultImage }) {
     const placeholder = isPlaceholder(resource);
+    const [showEmbed, setShowEmbed] = useState(false);
+    const [embedSrc, setEmbedSrc] = useState(null);
+    const objectUrlRef = useRef(null);
 
     const title = resource?.title || 'Untitled';
     const description = resource?.description || '';
@@ -54,11 +70,56 @@ function ResourceCard({ resource, defaultImage }) {
     const embedUrl = resource?.embed_url;
     const resourceType = resource?.resource_type;
 
+    useEffect(() => {
+        if (!showEmbed || !embedUrl) {
+            if (objectUrlRef.current) {
+                URL.revokeObjectURL(objectUrlRef.current);
+                objectUrlRef.current = null;
+            }
+            setEmbedSrc(null);
+            return;
+        }
+
+        let cancelled = false;
+        fetch(embedUrl)
+            .then(r => r.blob())
+            .then(blob => {
+                if (cancelled) return;
+                if (objectUrlRef.current) {
+                    URL.revokeObjectURL(objectUrlRef.current);
+                }
+                const url = URL.createObjectURL(blob);
+                objectUrlRef.current = url;
+                setEmbedSrc(url);
+            })
+            .catch(() => {
+                if (!cancelled) setEmbedSrc(null);
+            });
+
+        return () => {
+            cancelled = true;
+            if (objectUrlRef.current) {
+                URL.revokeObjectURL(objectUrlRef.current);
+                objectUrlRef.current = null;
+            }
+        };
+    }, [showEmbed, embedUrl]);
+
+    useEffect(() => {
+        if (!showEmbed) return;
+        const onKeyDown = (e) => {
+            if (e.key === 'Escape') setShowEmbed(false);
+        };
+        window.addEventListener('keydown', onKeyDown);
+        return () => window.removeEventListener('keydown', onKeyDown);
+    }, [showEmbed]);
+
     return (
-        <article
-            id={resource?.resource_id}
-            className="tw-group tw-flex tw-h-full tw-flex-col tw-overflow-hidden tw-rounded-xl tw-border-2 tw-border-slate-400 dark:tw-border-slate-500 tw-bg-slate-100 dark:tw-bg-slate-900 tw-shadow-md hover:tw-shadow-xl hover:tw-border-cyan-500 tw-transition"
-        >
+        <>
+            <article
+                id={resource?.resource_id}
+                className="tw-group tw-flex tw-h-full tw-flex-col tw-overflow-hidden tw-rounded-xl tw-border-2 tw-border-slate-400 dark:tw-border-slate-500 tw-bg-slate-100 dark:tw-bg-slate-900 tw-shadow-md hover:tw-shadow-xl hover:tw-border-cyan-500 tw-transition"
+            >
             <div className="tw-flex tw-flex-1 tw-flex-col tw-gap-4 tw-p-5">
                 <div className="tw-flex tw-items-start tw-gap-4">
                     <div className="tw-relative tw-shrink-0 tw-w-16 tw-h-16 sm:tw-w-20 sm:tw-h-20 tw-rounded-lg tw-overflow-hidden tw-bg-slate-100 dark:tw-bg-slate-800">
@@ -151,12 +212,55 @@ function ResourceCard({ resource, defaultImage }) {
                     <ActionLink href={resourceUrl} title="HydroShare Resource">
                         <HiOutlineGlobeAlt size={18} />
                     </ActionLink>
-                    <ActionLink href={embedUrl} title="Embed">
-                        <IoTvOutline size={18} />
-                    </ActionLink>
+                    {embedUrl && (
+                        <ActionButton
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setShowEmbed(true);
+                            }}
+                            title="View PDF"
+                        >
+                            <IoTvOutline size={18} />
+                        </ActionButton>
+                    )}
                 </div>
             </div>
-        </article>
+            </article>
+
+            {showEmbed && (
+                <div
+                    className="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-center tw-justify-center tw-bg-slate-900/70 tw-backdrop-blur-sm"
+                    onClick={() => setShowEmbed(false)}
+                >
+                    <div
+                        className="tw-relative tw-h-[85vh] tw-w-[92vw] tw-max-w-5xl tw-rounded-xl tw-bg-white dark:tw-bg-slate-900 tw-shadow-2xl"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            type="button"
+                            onClick={() => setShowEmbed(false)}
+                            aria-label="Close PDF"
+                            className="tw-absolute tw-right-3 tw-top-3 tw-z-10 tw-inline-flex tw-h-8 tw-w-8 tw-items-center tw-justify-center tw-rounded-full tw-bg-slate-900/70 tw-text-white hover:tw-bg-slate-900"
+                        >
+                            ×
+                        </button>
+                        <div className="tw-h-full tw-w-full tw-p-4">
+                            {embedSrc ? (
+                                <embed
+                                    src={embedSrc}
+                                    type="application/pdf"
+                                    className="tw-h-full tw-w-full tw-rounded-lg"
+                                />
+                            ) : (
+                                <div className="tw-flex tw-h-full tw-w-full tw-items-center tw-justify-center tw-rounded-lg tw-bg-slate-100 dark:tw-bg-slate-800">
+                                    Loading PDF...
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
 
