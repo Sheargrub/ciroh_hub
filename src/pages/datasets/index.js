@@ -35,9 +35,11 @@ function DatasetsPageContent({ contributeUrl, docsUrl }) {
   const isDarkTheme = colorMode === 'dark';
 
   const [datasets, setDatasets] = useState([]);
+  const [statsLoading, setStatsLoading] = useState(true);
 
-  const onResultsChange = useCallback((results) => {
+  const onResultsChange = useCallback((results, meta) => {
     setDatasets(results);
+    setStatsLoading(Boolean(meta?.loading));
   }, []);
 
   const stats = useMemo(() => {
@@ -103,25 +105,25 @@ function DatasetsPageContent({ contributeUrl, docsUrl }) {
           <div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-6">
             <div className="tw-text-center">
               <div className="tw-text-2xl sm:tw-text-3xl tw-font-bold tw-text-cyan-600 dark:tw-text-cyan-400">
-                {stats.totalDatasets}
+                {statsLoading ? <span className="statsLoadingText">...</span> : stats.totalDatasets}
               </div>
               <div className="tw-mt-1 tw-text-xs sm:tw-text-sm tw-text-slate-600 dark:tw-text-slate-300">Total Datasets</div>
             </div>
             <div className="tw-text-center">
               <div className="tw-text-2xl sm:tw-text-3xl tw-font-bold tw-text-cyan-600 dark:tw-text-cyan-400">
-                {stats.categories}
+                {statsLoading ? <span className="statsLoadingText">...</span> : stats.categories}
               </div>
               <div className="tw-mt-1 tw-text-xs sm:tw-text-sm tw-text-slate-600 dark:tw-text-slate-300">Categories</div>
             </div>
             <div className="tw-text-center">
               <div className="tw-text-2xl sm:tw-text-3xl tw-font-bold tw-text-cyan-600 dark:tw-text-cyan-400">
-                {stats.contributors}
+                {statsLoading ? <span className="statsLoadingText">...</span> : stats.contributors}
               </div>
               <div className="tw-mt-1 tw-text-xs sm:tw-text-sm tw-text-slate-600 dark:tw-text-slate-300">Contributors</div>
             </div>
             <div className="tw-text-center">
               <div className="tw-text-2xl sm:tw-text-3xl tw-font-bold tw-text-cyan-600 dark:tw-text-cyan-400">
-                {stats.lastUpdated}
+                {statsLoading ? <span className="statsLoadingText">...</span> : stats.lastUpdated}
               </div>
               <div className="tw-mt-1 tw-text-xs sm:tw-text-sm tw-text-slate-600 dark:tw-text-slate-300">Latest Update</div>
             </div>
@@ -144,4 +146,3 @@ function DatasetsPageContent({ contributeUrl, docsUrl }) {
     </>
   );
 }
-

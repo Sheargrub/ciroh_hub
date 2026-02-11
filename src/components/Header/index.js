@@ -57,7 +57,7 @@ export default function Header({ title, tagline, buttons }) {
 
           </div>
 
-          {/* RIGHT SIDE — LOGO */}
+          {/* RIGHT SIDE - LOGO */}
           <div className="tw-flex tw-items-center tw-justify-center tw-order-1 md:tw-order-2 lg:tw-order-2">
             <div className="tw-relative">
 

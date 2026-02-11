@@ -44,9 +44,11 @@ function AppsPageContent({ contributeUrl, docsUrl, defaultImage }) {
   const isDarkTheme = colorMode === 'dark';
 
   const [apps, setApps] = useState([]);
+  const [statsLoading, setStatsLoading] = useState(true);
 
-  const onResultsChange = useCallback((results) => {
+  const onResultsChange = useCallback((results, meta) => {
     setApps(results);
+    setStatsLoading(Boolean(meta?.loading));
   }, []);
 
   const stats = useMemo(() => {
@@ -114,25 +116,25 @@ function AppsPageContent({ contributeUrl, docsUrl, defaultImage }) {
           <div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-6">
             <div className="tw-text-center">
               <div className="tw-text-2xl sm:tw-text-3xl tw-font-bold tw-text-cyan-600 dark:tw-text-cyan-400">
-                {stats.totalApps}
+                {statsLoading ? <span className="statsLoadingText">...</span> : stats.totalApps}
               </div>
               <div className="tw-mt-1 tw-text-xs sm:tw-text-sm tw-text-slate-600 dark:tw-text-slate-300">Total Apps</div>
             </div>
             <div className="tw-text-center">
               <div className="tw-text-2xl sm:tw-text-3xl tw-font-bold tw-text-cyan-600 dark:tw-text-cyan-400">
-                {stats.categories}
+                {statsLoading ? <span className="statsLoadingText">...</span> : stats.categories}
               </div>
               <div className="tw-mt-1 tw-text-xs sm:tw-text-sm tw-text-slate-600 dark:tw-text-slate-300">Categories</div>
             </div>
             <div className="tw-text-center">
               <div className="tw-text-2xl sm:tw-text-3xl tw-font-bold tw-text-cyan-600 dark:tw-text-cyan-400">
-                {stats.contributors}
+                {statsLoading ? <span className="statsLoadingText">...</span> : stats.contributors}
               </div>
               <div className="tw-mt-1 tw-text-xs sm:tw-text-sm tw-text-slate-600 dark:tw-text-slate-300">Contributors</div>
             </div>
             <div className="tw-text-center">
               <div className="tw-text-2xl sm:tw-text-3xl tw-font-bold tw-text-cyan-600 dark:tw-text-cyan-400">
-                {stats.lastUpdated}
+                {statsLoading ? <span className="statsLoadingText">...</span> : stats.lastUpdated}
               </div>
               <div className="tw-mt-1 tw-text-xs sm:tw-text-sm tw-text-slate-600 dark:tw-text-slate-300">Latest Update</div>
             </div>
@@ -155,4 +157,3 @@ function AppsPageContent({ contributeUrl, docsUrl, defaultImage }) {
     </>
   );
 }
-
