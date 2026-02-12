@@ -42,7 +42,7 @@ export default function Header({ title, tagline, description, buttons, notice })
                 <p
                   className={clsx(
                     styles.heroDescription,
-                    'tw-text-sm sm:tw-text-base lg:tw-text-xl tw-leading-relaxed tw-max-w-lg',
+                    'tw-text-lg lg:tw-text-xl tw-leading-relaxed tw-max-w-l sm:tw-max-w-2xl tw-text-center md:tw-text-left ',
                     isDarkTheme ? 'tw-text-white' : 'tw-text-blue-700'
                   )}
                 >
