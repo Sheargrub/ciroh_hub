@@ -4,15 +4,6 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 const investigators = [
   {
-    name: "Steven Burian",
-    role: "Community Water Model Infrastructure, Stewardship, and Integration",
-    image: "/img/profiles/Steven_Burian.jpg",
-    initial: "SB", 
-    link: "https://eng.ua.edu/eng-directory/dr-steven-burian/",
-    orgName: "The University of Alabama",
-    orgLogo: "/img/logos/uni/UAlogo.png",
-  }, 
-  {
     name: "Purushotham Bangalore",
     role: "Community Accessible Development: Nextgen Water Resources Modeling Framework in the CIROH Research to Operations Hybrid Cloud",
     image: "/img/profiles/Purushotham_Bangalore.jpg",
@@ -39,15 +30,7 @@ const investigators = [
     orgName: "Brigham Young University",
     orgLogo: "/img/logos/uni/byu.png",
   },
-  {
-    name: "Jeffrey C. Carver",
-    role: "Associate Department Head for Graduate Studies\nDepartment of Computer Science",
-    image: "/img/profiles/Jeff_Carver.jpg",
-    initial: "JC",
-    link: "https://carver.cs.ua.edu/",
-    orgName: "University of Alabama",
-    orgLogo: "/img/logos/uni/UAlogo.png",
-  },
+
 ];
 
 export default function PrincipalInvestigators() {
