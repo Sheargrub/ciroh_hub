@@ -7,6 +7,7 @@
 /* ----------------------------- */
 /* LIGHT MODE - solid white      */
 /* ----------------------------- */
+@import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 :root {
   --ifm-color-primary: #19a7ce;
