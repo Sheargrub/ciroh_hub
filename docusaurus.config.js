@@ -49,7 +49,7 @@ const config = {
             applications across the field.
           </div>
           <a 
-            href="https://github.com/CIROH-UA/ciroh-ua_website/issues/new?template=docuhub-blog-post.md" 
+            href="https://github.com/CIROH-UA/ciroh_hub/issues/new?template=docuhub-blog-post.md" 
             target="_blank" 
             rel="noopener noreferrer"
             style="
@@ -94,7 +94,7 @@ const config = {
     // Centralized external links used across pages/components
     externalLinks: {
       zoteroLogin: "https://www.zotero.org/user/login",
-      feedbackForm: "https://forms.office.com/r/5ww7qRWwwf",
+      feedbackForm: "https://forms.cloud.microsoft/r/NzA2sLrzeJ",
     },
 
     // Optional links for contribution CTAs
