@@ -22,11 +22,11 @@ At their core, differentiable models embed traditional process-based equations (
 The daily model uses Long Short-Term Memory (LSTM)  and Multi-Layer Perceptron (MLP) neural networks (NNs) to learn time-dynamic and static parameters for HBV 2.0 [4] (a modified form of HBV). Weather forcings (precipitation, temperature, PET) and static catchment attributes are used as inputs to simulate hydrological states and fluxes:
 
 $$
-    \begin{align}
+\begin{align*}
     \theta_{d, m}^{1:t} &= \text{LSTM}( x_m^{1:t}, A_m ) \\
     \theta_{s, m} &= \text{MLP}( A_m ) \\
     Q_k^{1:t}, S_k^{1:t} &= \text{HBV}(x_m^{1:t}, \theta_{d, m}^{1:t}, \theta_{s, m})
-    \end{align}
+\end{align*}
 $$
 
 where:
@@ -87,8 +87,8 @@ AWI and Penn State's strong collaborative track record is anticipated to continu
 
 ### Publications
 
-1. Bindas, T., Tsai, W.-P., Liu, J., Rahmani, F., Feng, D., Bian, Y., et al. (2024). Improving river routing using a differentiable Muskingum-Cunge model and physics-informed machine learning. Water Resources Research, 60, e2023WR035337. <https://doi.org/10.1029/2023WR035337>
-2. Patel, A., Halgren, J., Wills, Z., Frazier, N., Lee, B., Cunningham, J., et al. (2025). NextGen In A Box (NGIAB): Open-Source containerization of the NextGen framework to enable community-driven hydrology modeling. Environmental Modelling & Software, Volume 193. <https://doi.org/10.1016/j.envsoft.2025.106666>
-3. Lonzarich, L., Shen, C., Song, Y., Rahmani, F., & Lawson, K. (2025). mhpi/generic_deltamodel: High-resolution differentiable model, 𝛿HBV2.0 (Version v1.4.0) [Computer software]. Zenodo. <https://doi.org/10.5281/zenodo.14828008>
-4. Song, Y., Bindas, T., Shen, C., Ji, H., Knoben, W. J. M., Lonzarich, L., et al. (2025). High-resolution national-scale water modeling is enhanced by multiscale differentiable physics-informed machine learning. Water Resources Research, 61, e2024WR038928. <https://doi.org/10.1029/2024WR038928>
-5. Yang, W., Ji, H., Lonzarich, L., Song, Y., Shen, C. (2025). Diffusion-Based Probabilistic Modeling for Hourly Streamflow Prediction and Assimilation. arXiv. <https://arxiv.org/abs/2510.08488> [In Review]
+1. Bindas, T., Tsai, W.-P., Liu, J., Rahmani, F., Feng, D., Bian, Y., et al. (2024). Improving river routing using a differentiable Muskingum-Cunge model and physics-informed machine learning. Water Resources Research, 60, e2023WR035337. [https://doi.org/10.1029/2023WR035337](https://doi.org/10.1029/2023WR035337)
+2. Patel, A., Halgren, J., Wills, Z., Frazier, N., Lee, B., Cunningham, J., et al. (2025). NextGen In A Box (NGIAB): Open-Source containerization of the NextGen framework to enable community-driven hydrology modeling. Environmental Modelling & Software, Volume 193. [https://doi.org/10.1016/j.envsoft.2025.106666](https://doi.org/10.1016/j.envsoft.2025.106666)
+3. Lonzarich, L., Shen, C., Song, Y., Rahmani, F., & Lawson, K. (2025). mhpi/generic_deltamodel: High-resolution differentiable model, 𝛿HBV2.0 (Version v1.4.0) [Computer software]. Zenodo. [https://doi.org/10.5281/zenodo.14828008](https://doi.org/10.5281/zenodo.14828008)
+4. Song, Y., Bindas, T., Shen, C., Ji, H., Knoben, W. J. M., Lonzarich, L., et al. (2025). High-resolution national-scale water modeling is enhanced by multiscale differentiable physics-informed machine learning. Water Resources Research, 61, e2024WR038928. [https://doi.org/10.1029/2024WR038928](https://doi.org/10.1029/2024WR038928)
+5. Yang, W., Ji, H., Lonzarich, L., Song, Y., Shen, C. (2025). Diffusion-Based Probabilistic Modeling for Hourly Streamflow Prediction and Assimilation. arXiv. [https://arxiv.org/abs/2510.08488](https://arxiv.org/abs/2510.08488) [In Review]
