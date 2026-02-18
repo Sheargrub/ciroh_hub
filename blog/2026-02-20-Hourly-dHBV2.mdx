@@ -6,7 +6,7 @@ tags: [CIROH, Blog, Alabama Water Institute, Pennsylvania State University, Hydr
 authors: [leo, quinn, josh, benjamin-lee, arpita-2025]
 ---
 
-In October 2025, Penn State's Multi-scale Hydrology, Processes and Intelligence group (MHPI), led by Dr. Chaopeng Shen, and the Alabama Water Institute (AWI), led by Arpita Patel, achieved a milestone R2O effort: the preliminary integration of δHBV 2.0 [4] -- a daily-scale, high-resolution, distributed differentiable model -- into a NextGen ecosystem. This resulted in the first adoption of a differentiable model into [NextGen In A Box (NGIAB)](https://github.com/CIROH-UA/NGIAB-CloudInfra) [2] and provided an opportunity for CIROH researchers to fine-tune the δHBV 2.0 architecture for NextGen operation.
+In October 2025, Penn State's Multi-scale Hydrology, Processes and Intelligence group (MHPI), led by Dr. Chaopeng Shen, and the Alabama Water Institute (AWI), led by Steve Burian and Arpita Patel, achieved a milestone R2O effort: the preliminary integration of δHBV 2.0 [4] -- a daily-scale, high-resolution, distributed differentiable model -- into a NextGen ecosystem. This resulted in the first adoption of a differentiable model into [NextGen In A Box (NGIAB)](https://github.com/CIROH-UA/NGIAB-CloudInfra) [2] and provided an opportunity for CIROH researchers to fine-tune the δHBV 2.0 architecture for NextGen operation.
 
 Having proven viability for daily timescale predictions on high-resolution river networks [4], MHPI researchers recently adapted δHBV 2.0 into a multi-timescale architecture designed to parameterize HBV and simulate streamflow at hourly intervals, at scale, across the NextGen HydroFabric. This new model, δHBV 2.0 MTS (Multi-TimeScale) [5], is a fusion of a daily and hourly δHBV 2.0 model designed to efficiently handle ML training with high geospatial *and* temporal complexity. (See [MTS Architecture](#mts-architecture) for more details about this construction.)
 
@@ -76,16 +76,16 @@ Differentiable routing products are also in consideration for operational deploy
 
 AWI and Penn State's strong collaborative track record is anticipated to continue as both teams support and potentially integrate new models into their NGIAB-NRDS ecosystem. Some of these efforts may also appear in DevCon later this spring. Ultimately, these successes stand as testaments to the value of inter-institutional collaboration for accelerating the integration of lab-bound research into operations for the broader CIROH community.
 
-~
+---
 
-### Code
+## Code
 
 * [δHBV 2.0 Operational Module Repository](https://github.com/mhpi/dhbv2)
 * [δMG Differentiable Modeling Framework](https://github.com/mhpi/generic_deltamodel) (Backbone for δHBV 2.0; includes documentation and tutorials for building custom differentiable hydrologic models.)
 * [Differentiable Distributed Routing (DDR)](https://github.com/DeepGroundwater/ddr)
 * [MHPI Codebase](https://mhpi.github.io/codes/)
 
-### Publications
+## Publications
 
 1. Bindas, T., Tsai, W.-P., Liu, J., Rahmani, F., Feng, D., Bian, Y., et al. (2024). Improving river routing using a differentiable Muskingum-Cunge model and physics-informed machine learning. Water Resources Research, 60, e2023WR035337. [https://doi.org/10.1029/2023WR035337](https://doi.org/10.1029/2023WR035337)
 2. Patel, A., Halgren, J., Wills, Z., Frazier, N., Lee, B., Cunningham, J., et al. (2025). NextGen In A Box (NGIAB): Open-Source containerization of the NextGen framework to enable community-driven hydrology modeling. Environmental Modelling & Software, Volume 193. [https://doi.org/10.1016/j.envsoft.2025.106666](https://doi.org/10.1016/j.envsoft.2025.106666)
