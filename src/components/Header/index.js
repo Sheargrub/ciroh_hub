@@ -62,7 +62,7 @@ export default function Header({ title, tagline, description, buttons, notice })
                     className={clsx(
                       'tw-no-underline lg:tw-text-xl tw-inline-flex tw-items-center tw-justify-center tw-px-6 tw-py-3 tw-rounded-lg tw-font-semibold tw-transition-all tw-duration-300',
                       button.primary
-                        ? 'tw-bg-cyan-500 tw-text-black hover:tw-bg-cyan-400'
+                        ? 'tw-bg-cyan-500 tw-text-white hover:tw-bg-cyan-400'
                         : 'tw-bg-black tw-text-white hover:tw-bg-gray-800 dark:tw-bg-white dark:tw-text-black dark:hover:tw-bg-gray-200'
                     )}
                     to={button.href}

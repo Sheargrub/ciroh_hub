@@ -40,7 +40,7 @@
 
   /* Global button theme tokens */
   --ciroh-button-primary-bg: #19a7ce;
-  --ciroh-button-primary-text: #000000;
+  --ciroh-button-primary-text: #ffffff;
   --ciroh-button-primary-border: #19a7ce;
   --ciroh-button-secondary-bg: #ffffff;
   --ciroh-button-secondary-text: #000000;
@@ -117,7 +117,7 @@
 
   /* Global button theme tokens (dark mode) */
   --ciroh-button-primary-bg: #19a7ce;
-  --ciroh-button-primary-text: #000000;
+  --ciroh-button-primary-text: #ffffff;
   --ciroh-button-primary-border: #19a7ce;
   --ciroh-button-secondary-bg: #060010;
   --ciroh-button-secondary-text: #ffffff;

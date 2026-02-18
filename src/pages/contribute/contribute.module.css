@@ -152,7 +152,7 @@
   display: inline-block;
   padding: 0.65rem 1.1rem;
   border-radius: 10px;
-  color: #000;
+  color: #fff;
   background: #19a7ce;
   border: 1px solid #19a7ce;
   font-weight: 700;
@@ -161,12 +161,12 @@
   transition: all 0.2s ease;
 }
 
-.zoteroButton:hover { color: #000; text-decoration: none; filter: brightness(1.05); transform: translateY(-1px); }
+.zoteroButton:hover { color: #060010; text-decoration: none; filter: brightness(1.05); transform: translateY(-1px); }
 
 .zoteroButtonPrimary {
   background: #19a7ce;
   border-color: #19a7ce;
-  color: #000;
+  color: #fff;
 }
 
 .zoteroButtonSecondary {
@@ -450,7 +450,7 @@ html[data-theme='dark'] .brandLogo { background: rgba(15,23,42,0.6); }
 
 .ctaButtonPrimary {
   padding: 0.85rem 1.75rem;
-  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  background: var(--ciroh-button-primary-bg);
   color: #fff;
   text-decoration: none;
   border-radius: 10px;
@@ -463,9 +463,10 @@ html[data-theme='dark'] .brandLogo { background: rgba(15,23,42,0.6); }
 .ctaButtonPrimary:hover {
   color: #fff;
   text-decoration: none;
-  background: linear-gradient(135deg, #075985 0%, #0c4a6e 100%);
+  background: var(--ciroh-button-primary-bg);
   box-shadow: 0 6px 16px rgba(14,165,233,0.35);
   transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 
 .ctaButtonSecondary {
@@ -552,11 +553,11 @@ html[data-theme='dark'] .ctaDescription {
 }
 
 html[data-theme='dark'] .ctaButtonPrimary {
-  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  background: var(--ciroh-button-primary-bg);
 }
 
 html[data-theme='dark'] .ctaButtonPrimary:hover {
-  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  background: var(--ciroh-button-primary-bg);
 }
 
 html[data-theme='dark'] .ctaButtonSecondary {

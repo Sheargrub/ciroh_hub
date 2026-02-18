@@ -80,8 +80,8 @@ const InfrastructureAccessSection = ({
     },
     button: {
       primary: {
-        bg: isDark ? '#06b6d4' : '#0891b2',
-        text: isDark ? '#ffffff' : '#000000',
+        bg: 'var(--ciroh-button-primary-bg)',
+        text: '#ffffff',
       },
       secondary: {
         text: isDark ? '#06b6d4' : '#0891b2',

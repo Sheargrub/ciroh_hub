@@ -74,10 +74,10 @@ export default function OfficeHoursFeature() {
                     {/* BUTTONS */}
                     <div className="tw-flex tw-justify-center tw-gap-4">
                         <Link
-                        className={`button tw-inline-flex tw-text-black tw-bg-cyan-500 tw-border-0 
+                        className={`button tw-inline-flex tw-text-white tw-bg-cyan-500 tw-border-0 
                         tw-py-3 tw-px-8 tw-rounded-lg tw-text-lg tw-font-semibold
                         hover:tw-bg-cyan-600 tw-transition-colors
-                        dark:tw-bg-cyan-500 dark:tw-text-black dark:hover:tw-bg-cyan-600`}
+                        dark:tw-bg-cyan-500 dark:tw-text-white dark:hover:tw-bg-cyan-600`}
                         href="/docs/products/ngiab/office-hours"
                         style={{ textDecoration: "none", marginRight: "10px" }}
                         >

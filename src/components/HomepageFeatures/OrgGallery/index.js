@@ -42,7 +42,7 @@ export default function OrgGallery() {
 
                 {/* Members */}
                 <div>
-                  <div className={`${styles.heading} tw-text-blue-800 dark:tw-text-white`}>
+                  <div className={`${styles.heading} tw-text-black dark:tw-text-white`}>
                     Consortium Members
                   </div>
 
@@ -67,7 +67,7 @@ export default function OrgGallery() {
 
                 {/* Partners */}
                 <div>
-                  <div className={`${styles.heading} tw-text-blue-800 dark:tw-text-white`}>
+                  <div className={`${styles.heading} tw-text-black dark:tw-text-white`}>
                     Consortium Partners
                   </div>
 
