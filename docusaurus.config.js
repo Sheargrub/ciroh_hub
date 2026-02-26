@@ -343,23 +343,24 @@ const config = {
               ],
             },
             {
-            label: "Blog and News",
-            position: "left",
-            items: [
-              {
-                href: "/blog",
-                label: "Blog",
-              },
-              {
-                href: "/news",
-                label: "News",
-              },
-              {
-                href: "/release-notes",
-                label: "Release Notes",
-              }
-            ]
-          },
+              
+              label: "Blog",
+              position: "right",
+              to: "/blog",
+            },
+            {
+              
+              label: "News",
+              position: "right",
+              to: "/news",
+            },
+            {
+              
+              label: "Release Notes",
+              position: "right",
+              to: "/release-notes",
+            },
+            
           ],
         },
         footer: {
