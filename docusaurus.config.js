@@ -343,7 +343,7 @@ const config = {
               ],
             },
             {
-            label: "Updates",
+            label: "Blog and News",
             position: "left",
             items: [
               {
