@@ -24,9 +24,11 @@ export default function InfrastructureFeature() {
                 of water modeling and forecasting.
               </p>
 
-              <div className="tw-mt-12 tw-grid tw-grid-cols-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 tw-grid-cols-[repeat(auto-fit,_16.666666%)] tw-gap-6 tw-max-w-5xl tw-mx-auto tw-items-center">
+              <div className="tw-mt-12 tw-grid tw-grid-cols-4 md:tw-grid-cols-4 lg:tw-grid-cols-6 tw-gap-6 tw-max-w-5xl tw-mx-auto tw-items-center">
 
-                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow">
+                {/* Note: double-width grid is used to allow centering of elements for prime list size */}
+
+                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow tw-col-span-2">
                   <div className="tw-text-4xl tw-font-bold tw-text-black dark:tw-text-cyan-300">
                     104
                   </div>
@@ -35,7 +37,7 @@ export default function InfrastructureFeature() {
                   </div>
                 </div>
 
-                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow">
+                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow tw-col-span-2">
                   <div className="tw-text-4xl tw-font-bold tw-text-black dark:tw-text-cyan-300">
                     {communityImpactData.aws.projects}
                   </div>
@@ -44,7 +46,7 @@ export default function InfrastructureFeature() {
                   </div>
                 </div>
 
-                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow">
+                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow tw-col-span-2">
                   <div className="tw-text-4xl tw-font-bold tw-text-black dark:tw-text-cyan-300">
                     {communityImpactData.gcp.projects}
                   </div>
@@ -53,7 +55,7 @@ export default function InfrastructureFeature() {
                   </div>
                 </div>
 
-                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow">
+                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow tw-col-span-2 lg:tw-col-start-2">
                   <div className="tw-text-4xl tw-font-bold tw-text-black dark:tw-text-cyan-300">
                     {communityImpactData.hpc.projects}
                   </div>
@@ -62,7 +64,7 @@ export default function InfrastructureFeature() {
                   </div>
                 </div>
 
-                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow">
+                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow tw-col-span-2 tw-col-start-2 lg:tw-col-start-4">
                   <div className="tw-text-4xl tw-font-bold tw-text-black dark:tw-text-cyan-300">
                     {communityImpactData.nsf.projects}
                   </div>

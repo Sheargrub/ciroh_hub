@@ -263,7 +263,7 @@ export default function ResearchFeature() {
                 </div>
 
                 {/* COURSES */}
-                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow tw-col-span-2 md:tw-col-span-1">
+                <div className="tw-text-center tw-p-6 tw-bg-white dark:tw-bg-slate-800 tw-rounded-2xl tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow tw-col-span-1">
                   <div className="tw-text-4xl tw-font-bold tw-text-black dark:tw-text-cyan-300">
                     {statsLoading ? <span className="tw-animate-ping">...</span> : stats.courses}
                   </div>
