@@ -34,7 +34,7 @@ export default function CommunityImpactComponent() {
   },
   {
     accent: "gcp",
-    title: "GCP / JupyterHub",
+    title: "GCP + 2i2c JupyterHub",
     color: "#4285F4",
     svg: <img src={useBaseUrl("/img/logos/corp/google-cloud.jpg")} alt="GCP Logo" />,
     stats: [
@@ -44,7 +44,7 @@ export default function CommunityImpactComponent() {
   },
   {
     accent: "hpc",
-    title: "On-premise HPC",
+    title: "On-Premise HPC",
     color: "#10B981",
     svg: <img src={useBaseUrl("/img/logos/pantarhei.jpg")} alt="HPC Logo" />,
     stats: [
