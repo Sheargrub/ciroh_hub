@@ -72,7 +72,7 @@ jobs:
       - name: Deploy to composite repository
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: "production/build/"
+          folder: "./build/"
           ssh-key: ${{ secrets.SSH_DEPLOY_HUB_SUBDOMAIN }}
           respository-name: ${{ env.TARGET_REPO }}
           target-folder: ${{ env.TARGET_PATH }}
