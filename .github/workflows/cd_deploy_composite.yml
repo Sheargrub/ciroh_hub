@@ -74,7 +74,7 @@ jobs:
         with:
           folder: "./build/"
           ssh-key: ${{ secrets.SSH_DEPLOY_HUB_SUBDOMAIN }}
-          respository-name: ${{ env.TARGET_REPO }}
+          repository-name: ${{ env.TARGET_REPO }}
           target-folder: ${{ env.TARGET_PATH }}
           clean: $ENVIRONMENT == 'production' # Set to false if deploying to a composite repository's root!
 
