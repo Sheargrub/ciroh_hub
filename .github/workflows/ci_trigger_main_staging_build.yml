@@ -1,6 +1,6 @@
 # Triggers a legacy-style CI/CD deployment.
 
-name: CI: Trigger staging deployment from main
+name: 'CI: Trigger staging deployment from main'
 
 on:
   push:

@@ -4,7 +4,7 @@
 # Will soon be renamed to cd_build_artifact.yml.
 # Trigger logic has been spun out into the various 'ci_trigger_*.yml' workflows.
 
-name: CI: Create Build Artifact
+name: 'CI: Create Build Artifact'
 
 on:
   repository_dispatch:

@@ -1,6 +1,6 @@
 # Triggers a release build, which will proceed to production.
 
-name: CI: Trigger production deployment from main
+name: 'CI: Trigger production deployment from main'
 
 on:
   push:
