@@ -8,7 +8,7 @@ on:
     - main
     - test-deploy
     tags-ignore:
-    - '*'
+    - '**'
   workflow_dispatch:
 
 jobs:
@@ -18,6 +18,5 @@ jobs:
     - name: 'Send repository dispatch'
       uses: peter-evans/repository-dispatch@v4
       with:
-        repository: CIROH-UA/ciroh_hub
         event-type: build-main-for-production
         client-payload: '{"deploy_env": "staging", "base_url": "/staging/main/"}'
