@@ -5,10 +5,10 @@ name: 'CI: Trigger production deployment from main'
 on:
   push:
     branches:
-     - main
-     - test-deploy
+    - main
+    - test-deploy
     tags:
-      - '*'
+    - '*'
   workflow_dispatch:
 
 jobs:

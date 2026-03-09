@@ -57,15 +57,15 @@ jobs:
           if [[ "$DEPLOY_ENV" == "production" ]]; then
             echo "ENVIRONMENT=production" >> $GITHUB_ENV
             echo "environment=production" >> $GITHUB_OUTPUT
-            echo "TARGET_REPO=${{ PROD_REPO }}" >> $GITHUB_ENV
-            echo "TARGET_PATH=${{ PROD_PATH }}" >> $GITHUB_ENV
-            echo "Deploying to ${{ TARGET_REPO }} as PRODUCTION at path ${{ TARGET_PATH }}"
+            echo "TARGET_REPO=$PROD_REPO" >> $GITHUB_ENV
+            echo "TARGET_PATH=$PROD_PATH" >> $GITHUB_ENV
+            echo "Deploying to $TARGET_REPO as PRODUCTION at path $TARGET_PATH"
           else
             echo "ENVIRONMENT=staging" >> $GITHUB_ENV
             echo "environment=staging" >> $GITHUB_OUTPUT
-            echo "TARGET_REPO=${{ STAGING_REPO }}" >> $GITHUB_ENV
-            echo "TARGET_PATH=${{ STAGING_PATH }}${{ STAGING_MAIN_FOLDER }}" >> GITHUB_ENV
-            echo "Deploying to ${{ TARGET_REPO }} as STAGING at path ${{ TARGET_PATH }}"
+            echo "TARGET_REPO=$STAGING_REPO" >> $GITHUB_ENV
+            echo "TARGET_PATH=$STAGING_PATH$STAGING_MAIN_FOLDER" >> GITHUB_ENV
+            echo "Deploying to $TARGET_REPO as STAGING at path $TARGET_PATH"
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
@@ -76,7 +76,7 @@ jobs:
           ssh-key: ${{ secrets.SSH_DEPLOY_HUB_SUBDOMAIN }}
           respository-name: ${{ env.TARGET_REPO }}
           target-folder: ${{ env.TARGET_PATH }}
-          clean: ${{ env.ENVIRONMENT == 'production' }} # Set to false if deploying to a composite repository's root!
+          clean: $ENVIRONMENT == 'production' # Set to false if deploying to a composite repository's root!
 
       - name: Post-deployment notification
         run: |
@@ -93,7 +93,7 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "- **Environment**: Production" >> $GITHUB_STEP_SUMMARY
             echo "- **Version**: ${{ needs.deploy.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-            echo "- **URL (once live)**: https://hub.ciroh.org/${{ TARGET_PATH }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **URL (once live)**: https://hub.ciroh.org/$TARGET_PATH" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
           fi
-          echo "Deployment to GitHub Pages will be completed by the composite target repository, ${{ env.TARGET_REPO }}." >> $GITHUB_STEP_SUMMARY
+          echo "Deployment to GitHub Pages will be completed by the composite target repository, $TARGET_REPO." >> $GITHUB_STEP_SUMMARY

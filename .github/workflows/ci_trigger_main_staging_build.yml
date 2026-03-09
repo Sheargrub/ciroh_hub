@@ -5,10 +5,10 @@ name: 'CI: Trigger staging deployment from main'
 on:
   push:
     branches:
-     - main
-     - test-deploy
+    - main
+    - test-deploy
     tags-ignore:
-     - '*'
+    - '*'
   workflow_dispatch:
 
 jobs:

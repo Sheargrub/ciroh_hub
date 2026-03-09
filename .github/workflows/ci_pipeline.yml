@@ -22,7 +22,7 @@ jobs:
     - name: Extract payload inputs
     - run: |
         echo "DEPLOY_ENV = ${{ github.event.client_payload.deploy_env }}" >> $GITHUB_ENV
-        echo "BASE_URL = ${{vars.BASE_URL_PREFIX}}${{ github.event.client_payload.base_url }}" >> $GITHUB_ENV
+        echo "BASE_URL = ${{ vars.BASE_URL_PREFIX }}${{ github.event.client_payload.base_url }}" >> $GITHUB_ENV
       # BASE_URL_PREFIX is purely to allow testing on forks; it should be left empty on the main branch
     
     - name: Validate payload inputs
@@ -80,11 +80,11 @@ jobs:
         cp docusaurus.config.js docusaurus.config.js.bak
         
         # Use sed to replace the baseUrl value
-        echo "Setting baseUrl to path '${{BASE_URL}}'"
-        sed -i 's|baseUrl: '\''\/local\/'\''|baseUrl: '\''${{BASE_URL}}'\''|g' docusaurus.config.js
-        sed -i 's|baseUrl: "\/local\/"|baseUrl: '\''${{BASE_URL}}'\''|g' docusaurus.config.js
-        sed -i 's|baseUrl = '\''\/local\/'\''|baseUrl = '\''${{BASE_URL}}'\''|g' docusaurus.config.js
-        sed -i 's|baseUrl = "\/local\/"|baseUrl = '\''${{BASE_URL}}'\''|g' docusaurus.config.js
+        echo "Setting baseUrl to path '$BASE_URL'"
+        sed -i 's|baseUrl: '\''\/local\/'\''|baseUrl: '\''$BASE_URL'\''|g' docusaurus.config.js
+        sed -i 's|baseUrl: "\/local\/"|baseUrl: '\''$BASE_URL'\''|g' docusaurus.config.js
+        sed -i 's|baseUrl = '\''\/local\/'\''|baseUrl = '\''$BASE_URL'\''|g' docusaurus.config.js
+        sed -i 's|baseUrl = "\/local\/"|baseUrl = '\''$BASE_URL'\''|g' docusaurus.config.js
         
         # Show the changed config
         echo "Modified docusaurus.config.js:"
