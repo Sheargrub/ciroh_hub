@@ -63,8 +63,8 @@ jobs:
           else
             echo "ENVIRONMENT=staging" >> $GITHUB_ENV
             echo "environment=staging" >> $GITHUB_OUTPUT
-            echo "TARGET_REPO=$STAGING_REPO" >> $GITHUB_ENV
-            echo "TARGET_PATH=$STAGING_PATH$STAGING_MAIN_FOLDER" >> GITHUB_ENV
+            echo "TARGET_REPO='$STAGING_REPO'" >> $GITHUB_ENV
+            echo "TARGET_PATH='$STAGING_PATH$STAGING_MAIN_FOLDER'" >> GITHUB_ENV
             echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH$STAGING_MAIN_FOLDER"
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
@@ -86,19 +86,14 @@ jobs:
         run: |
           if [[ "${{ env.ENVIRONMENT }}" == "production" ]]; then
             echo "### Production build artifact uploaded! 🚀" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "- **Environment**: Production" >> $GITHUB_STEP_SUMMARY
-            echo "- **Version**: ${{ needs.deploy.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-            echo "- **URL (once live)**: https://hub.ciroh.org/" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
           else
             echo "Staging build artifact uploaded! 🚀"
-            echo "To deploy to production, manually trigger the workflow and select 'production'"
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "- **Environment**: Production" >> $GITHUB_STEP_SUMMARY
-            echo "- **Version**: ${{ needs.deploy.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-            echo "- **URL (once live)**: https://hub.ciroh.org/$TARGET_PATH" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
             echo "To deploy to production, manually trigger the 'CI: Trigger staging deployment from main' workflow." >> $GITHUB_STEP_SUMMARY
           fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment**: $ENVIRONMENT" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ needs.deploy.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deploy Target**: $TARGET_REPO -> $TARGET_PATH" >> $GITHUB_STEP_SUMMARY
+          echo "- **URL (once live)**: https://hub.ciroh.org/$BASE_URL" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
           echo "Deployment to GitHub Pages will be completed by the composite target repository, $TARGET_REPO." >> $GITHUB_STEP_SUMMARY
