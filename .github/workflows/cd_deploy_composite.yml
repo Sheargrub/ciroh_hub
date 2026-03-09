@@ -65,9 +65,13 @@ jobs:
             echo "environment=staging" >> $GITHUB_OUTPUT
             echo "TARGET_REPO=$STAGING_REPO" >> $GITHUB_ENV
             echo "TARGET_PATH=$STAGING_PATH$STAGING_MAIN_FOLDER" >> GITHUB_ENV
-            echo "Deploying to $TARGET_REPO as STAGING at path $TARGET_PATH"
+            echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH$STAGING_MAIN_FOLDER"
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Deployment preview
+        run: |
+          echo "Deploying to $TARGET_REPO as $ENVIRONMENT at path $TARGET_PATH"
 
       - name: Deploy to composite repository
         uses: JamesIves/github-pages-deploy-action@v4

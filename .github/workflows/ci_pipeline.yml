@@ -61,15 +61,14 @@ jobs:
     - name: Determine build type and version
       id: build-info
       run: |
+        echo "VERSION=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+        
         if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.deploy_env }}" == "production" ]]; then
           VERSION=$(date +'%Y%m%d-%H%M%S')
           echo "DEPLOY_ENV=production" >> $GITHUB_ENV
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Building for PRODUCTION environment"
         else
-          VERSION=$(date +'%Y%m%d-%H%M%S')
           echo "DEPLOY_ENV=staging" >> $GITHUB_ENV
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Building for STAGING environment"
         fi
 
