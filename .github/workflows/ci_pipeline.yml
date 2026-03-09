@@ -28,7 +28,7 @@ jobs:
     - name: Validate payload inputs
       run: |
         if ![["$DEPLOY_ENV" = "production"] || ["$DEPLOY_ENV" = "staging"]]; then
-          echo "Invalid DEPLOY_ENV value. Expected 'production' or 'staging'; recieved '${{ DEPLOY_ENV }}'. "
+          echo "Invalid DEPLOY_ENV value. Expected 'production' or 'staging'; recieved '$DEPLOY_ENV'. "
           exit 1
         fi
 
