@@ -20,13 +20,13 @@ jobs:
   
     steps:
     - name: Extract payload inputs
-    - run: |
+      run: |
         echo "DEPLOY_ENV = ${{ github.event.client_payload.deploy_env }}" >> $GITHUB_ENV
         echo "BASE_URL = ${{ vars.BASE_URL_PREFIX }}${{ github.event.client_payload.base_url }}" >> $GITHUB_ENV
       # BASE_URL_PREFIX is purely to allow testing on forks; it should be left empty on the main branch
     
     - name: Validate payload inputs
-    - run: |
+      run: |
         if ![["$DEPLOY_ENV" = "production"] || ["$DEPLOY_ENV" = "staging"]]; then
           echo "Invalid DEPLOY_ENV value. Expected 'production' or 'staging'; recieved '${{ DEPLOY_ENV }}'. "
           exit 1
@@ -125,7 +125,7 @@ jobs:
           draft: false
           prerelease: false
 
-   # Get short SHA first
+    # Get short SHA first
     - name: Get short SHA
       id: short-sha
       run: echo "SHORT_SHA=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
