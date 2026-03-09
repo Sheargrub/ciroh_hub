@@ -95,5 +95,6 @@ jobs:
             echo "- **Version**: ${{ needs.deploy.outputs.version }}" >> $GITHUB_STEP_SUMMARY
             echo "- **URL (once live)**: https://hub.ciroh.org/$TARGET_PATH" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
+            echo "To deploy to production, manually trigger the 'CI: Trigger staging deployment from main' workflow." >> $GITHUB_STEP_SUMMARY
           fi
           echo "Deployment to GitHub Pages will be completed by the composite target repository, $TARGET_REPO." >> $GITHUB_STEP_SUMMARY
