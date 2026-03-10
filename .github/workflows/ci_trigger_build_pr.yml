@@ -31,7 +31,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        ref: ${{ SOURCE_REF }}
+        ref: ${{ env.SOURCE_REF }}
 
     - name: Fetch commit header
       run: |
