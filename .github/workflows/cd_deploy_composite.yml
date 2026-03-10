@@ -63,8 +63,8 @@ jobs:
           else
             echo "ENVIRONMENT=staging" >> $GITHUB_ENV
             echo "environment=staging" >> $GITHUB_OUTPUT
-            echo "TARGET_REPO=${{ env.STAGING_REPO }}" >> $GITHUB_ENV
-            echo "TARGET_PATH=${{ env.STAGING_PATH }}${{ env.STAGING_MAIN_FOLDER }}'" >> GITHUB_ENV
+            echo "TARGET_REPO='${{ env.STAGING_REPO }}'" >> $GITHUB_ENV
+            echo "TARGET_PATH='${{ env.STAGING_PATH }}${{ env.STAGING_MAIN_FOLDER }}'" >> GITHUB_ENV
             echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH$STAGING_MAIN_FOLDER"
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
