@@ -71,17 +71,16 @@ jobs:
     # See also: https://github.com/npm/cli/issues/4828
 
     - name: Configure baseUrl
-      if: ${{ env.BASE_URL != '.' }}
       run: |
         # Create a backup of the original config
         cp docusaurus.config.js docusaurus.config.js.bak
         
         # Use sed to replace the baseUrl value
         echo "Setting baseUrl to path '$BASE_URL'"
-        sed -i 's|baseUrl: '\''\/local\/'\''|baseUrl: '\''$BASE_URL'\''|g' docusaurus.config.js
-        sed -i 's|baseUrl: "\/local\/"|baseUrl: '\''$BASE_URL'\''|g' docusaurus.config.js
-        sed -i 's|baseUrl = '\''\/local\/'\''|baseUrl = '\''$BASE_URL'\''|g' docusaurus.config.js
-        sed -i 's|baseUrl = "\/local\/"|baseUrl = '\''$BASE_URL'\''|g' docusaurus.config.js
+        sed -i 's|baseUrl: '\''\/local\/'\''|baseUrl: '\''${{ env.BASE_URL }}'\''|g' docusaurus.config.js
+        sed -i 's|baseUrl: "\/local\/"|baseUrl: '\''${{ env.BASE_URL }}'\''|g' docusaurus.config.js
+        sed -i 's|baseUrl = '\''\/local\/'\''|baseUrl = '\''${{ env.BASE_URL }}'\''|g' docusaurus.config.js
+        sed -i 's|baseUrl = "\/local\/"|baseUrl = '\''${{ env.BASE_URL }}'\''|g' docusaurus.config.js
         
         # Show the changed config
         echo "Modified docusaurus.config.js:"
