@@ -24,15 +24,15 @@ jobs:
         echo "DEPLOY_ENV=pr-staging" >> $GITHUB_ENV
         echo "TARGET_REPO=$STAGING_REPO" >> $GITHUB_ENV
         echo "TARGET_PATH=${{ env.STAGING_PATH }}${{ github.event.number }}/" >> $GITHUB_ENV
-        echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH$${{ github.event.number }}/"
+        echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH${{ github.event.number }}/"
         echo "SOURCE_REF=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
 
     # Checkout to fetch commit header
     - name: Checkout
       uses: actions/checkout@v4
       with:
-      - fetch-depth: 0
-      - ref: ${{ env.SOURCE_REF }}
+        fetch-depth: 0
+        ref: ${{ env.SOURCE_REF }}
 
     - name: 'Fetch commit header'
       run: \

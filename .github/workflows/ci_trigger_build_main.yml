@@ -49,8 +49,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-      - fetch-depth: 0
-      - ref: ${{ env.SOURCE_REF }}
+        fetch-depth: 0
+        ref: ${{ env.SOURCE_REF }}
 
     - name: Fetch commit header
       run: \
