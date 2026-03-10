@@ -83,8 +83,9 @@ jobs:
         sed -i 's|baseUrl = "\/local\/"|baseUrl = '\''${{ env.BASE_URL }}'\''|g' docusaurus.config.js
         
         # Show the changed config
-        echo "Modified docusaurus.config.js:"
-        cat docusaurus.config.js
+        config_out="$(cat docusaurus.config.js | head -n 10)"
+        echo "Modified docusaurus.config.js (first 10 lines):"
+        echo "${config_out}"
 
     # Build the site
     - name: Build website
@@ -132,4 +133,4 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         event-type: build-completed
-        client-payload: '{"env": "${{ env.DEPLOY_ENV }}", "version": "${{ env.VERSION }}", "target_repo": "${{ env.TARGET_REPO }}", "target_path": "{{ env.TARGET_PATH }}", "short_hash": "${{ steps.short-sha.outputs.SHORT_SHA }}", "commit_hash": "${{ github.sha }}", "commit_header": "${{ github.events.client_payload.commit_header }}", "branch": "${{ github.ref_name }}", "pr_number": "${{ env.PR_NUMBER }}", "type_description": "{{ github.events.client_payload.type_description }}", "target_description": "${{ env.TARGET_PATH }} @ ${{ env.TARGET_REPO }}"}'
+        client-payload: '{"env": "${{ env.DEPLOY_ENV }}", "version": "${{ env.VERSION }}", "target_repo": "${{ env.TARGET_REPO }}", "target_path": "{{ env.TARGET_PATH }}", "short_hash": "${{ steps.short-sha.outputs.SHORT_SHA }}", "commit_hash": "${{ github.sha }}", "commit_header": "${{ github.events.client_payload.commit_header }}", "branch": "${{ github.ref_name }}", "pr_number": "${{ env.PR_NUMBER }}", "target_description": "${{ env.TARGET_PATH }} @ ${{ env.TARGET_REPO }}"}'
