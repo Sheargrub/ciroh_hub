@@ -31,7 +31,7 @@ jobs:
           echo "BASE_URL=${{ vars.BASE_URL_PREFIX }}/${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
         else
           echo "BASE_URL=${{ vars.BASE_URL_PREFIX }}/" >> $GITHUB_ENV
-        endif
+        fi
       # PR_NUMBER can and should be left empty for non-PR builds
       # BASE_URL_PREFIX is purely to allow testing on forks; it should be left empty on the main branch
     
