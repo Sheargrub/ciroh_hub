@@ -69,7 +69,7 @@ jobs:
           token: ${{ secrets.GH_STAGING_TOKEN }}
           branch: main
           folder: build
-          repository-name: ${{ env.TARGET_REPO }}
+          repository-name: CIROH-UA/ciroh_hub_staging
 
       # Production: Upload pages artifact for deployment in current repo
       - name: Upload pages artifact for production

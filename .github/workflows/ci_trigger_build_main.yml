@@ -44,6 +44,7 @@ jobs:
           echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH$STAGING_MAIN_FOLDER"
         fi
         echo "SOURCE_REF=${{ github.ref }}" >> $GITHUB_ENV
+        echo "COMMIT_HEADER=${{ github.event.client_payload.commit_header }}" >> $GITHUB_ENV
 
     # Checkout to fetch commit header
     - name: Checkout
