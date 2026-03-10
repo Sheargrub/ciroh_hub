@@ -22,7 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           ref: refs/heads/main
 
       # Get environment, version, etc from dispatch payload
