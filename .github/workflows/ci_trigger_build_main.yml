@@ -59,4 +59,4 @@ jobs:
       uses: peter-evans/repository-dispatch@v4
       with:
         event-type: create-build
-        client-payload: '{"deploy_env": "${{ env.DEPLOY_ENV }}", source_ref": "${{ env.SOURCE_REF }}", "target_repo": "${{ env.TARGET_REPO }}", "target_path": "${{ env.TARGET_PATH }}", "commit_header": "${{ env.COMMIT_HEADER }}", "type_description": "${{ env.DEPLOY_ENV }}"}'
+        client-payload: '{"deploy_env": "${{ env.DEPLOY_ENV }}", "source_ref": "${{ env.SOURCE_REF }}", "target_repo": "${{ env.TARGET_REPO }}", "target_path": "${{ env.TARGET_PATH }}", "commit_header": "${{ env.COMMIT_HEADER }}", "type_description": "${{ env.DEPLOY_ENV }}"}'
