@@ -30,8 +30,6 @@ jobs:
     # Checkout to fetch commit header
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        ref: ${{ env.SOURCE_REF }}
 
     - name: Fetch commit header
       run: |
