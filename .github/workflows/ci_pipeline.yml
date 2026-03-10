@@ -5,7 +5,7 @@
 # Trigger logic has been spun out into the various 'ci_trigger_*.yml' workflows.
 
 name: 'CI: Create Build Artifact'
-run-name: 'Create build artifact for ${{github.event.client_payload.type_description}}: "${{github.event.payload.commit_header}}"'
+run-name: 'Create build artifact for ${{github.event.client_payload.type_description}}: "${{github.event.client_payload.commit_header}}"'
 
 on:
   repository_dispatch:
@@ -22,13 +22,18 @@ jobs:
     steps:
     - name: Extract payload inputs
       run: |
-        echo "DEPLOY_ENV = ${{ github.event.client_payload.deploy_env }}" >> $GITHUB_ENV
-        echo "TARGET_REPO = ${{ github.event.client_payload.target_repo }}" >> $GITHUB_ENV
-        echo "TARGET_PATH = ${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
-        echo "BASE_URL = ${{ vars.BASE_URL_PREFIX }}${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
-        echo "PR_NUMBER = ${{ github.event.client_payload.pr_number }}" >> $GITHUB_ENV
-      # BASE_URL_PREFIX is purely to allow testing on forks; it should be left empty on the main branch
-      # PR_NUMBER can and should be left empty for non-PR builds
+        echo "DEPLOY_ENV=${{ github.event.client_payload.deploy_env }}" >> $GITHUB_ENV
+        echo "TARGET_REPO=${{ github.event.client_payload.target_repo }}" >> $GITHUB_ENV
+        echo "TARGET_PATH=${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
+        echo "PR_NUMBER=${{ github.event.client_payload.pr_number }}" >> $GITHUB_ENV
+        # PR_NUMBER can and should be left empty for non-PR builds
+
+        if {{ target_path != '.' }}; then
+          echo "BASE_URL=${{ vars.BASE_URL_PREFIX }}/${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
+        else
+          echo "BASE_URL=${{ vars.BASE_URL_PREFIX }}/" >> $GITHUB_ENV
+        endif
+        # BASE_URL_PREFIX is purely to allow testing on forks; it should be left empty on the main branch
     
     - name: Validate payload inputs
       run: |

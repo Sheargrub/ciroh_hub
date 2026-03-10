@@ -30,9 +30,9 @@ jobs:
           echo "ENVIRONMENT=${{ github.event.client_payload.env }}" >> $GITHUB_ENV
           echo "VERSION=${{ github.event.client_payload.version }}" >> $GITHUB_ENV
 
-          echo "TARGET_REPO = ${{ github.event.client_payload.target_repo }}" >> $GITHUB_ENV
-          echo "TARGET_PATH = ${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
-          echo "PR_NUMBER = ${{ github.event.client_payload.pr_number }}" >> $GITHUB_ENV
+          echo "TARGET_REPO=${{ github.event.client_payload.target_repo }}" >> $GITHUB_ENV
+          echo "TARGET_PATH=${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
+          echo "PR_NUMBER=${{ github.event.client_payload.pr_number }}" >> $GITHUB_ENV
 
           echo "environment=${{ github.event.client_payload.env }}" >> $GITHUB_OUTPUT
           echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
