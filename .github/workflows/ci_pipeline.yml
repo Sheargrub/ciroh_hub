@@ -5,7 +5,7 @@
 # Trigger logic has been spun out into the various 'ci_trigger_*.yml' workflows.
 
 name: 'CI: Create Build Artifact'
-run-name: 'Create Build Artifact: "${{github.event.ref}}"'
+run-name: 'Create Build Artifact: "${{github.event.head_commit.message}}"'
 
 on:
   repository_dispatch:

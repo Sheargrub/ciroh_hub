@@ -1,7 +1,7 @@
 # Triggers a CI/CD deployment from the main branch to staging.
 
 name: 'CI: Trigger staging deployment from main'
-run-name: 'Trigger deployment to staging: "${{github.event.ref}}"'
+run-name: 'Trigger deployment to staging: "${{github.event.head_commit.message}}"'
 
 on:
   push:
