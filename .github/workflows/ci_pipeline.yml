@@ -50,9 +50,10 @@ jobs:
         
     - name: Generate version
       id: version
-      run: \
-        echo "VERSION=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
-        echo "VERSION=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+      run: |
+        version=$(date +'%Y%m%d-%H%M%S')
+        echo "VERSION=${version}" >> $GITHUB_OUTPUT
+        echo "VERSION=${version}" >> $GITHUB_ENV
 
     - name: Install dependencies
       run: |
