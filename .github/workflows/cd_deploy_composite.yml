@@ -58,9 +58,9 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build
-          ssh-key: ${{ secrets.SSH_DEPLOY_HUB_SUBDOMAIN }}
-          repository-name: ${{ env.TARGET_REPO }}
-          target-folder: ${{ env.TARGET_PATH }}
+          ssh-key: '${{ secrets.SSH_DEPLOY_HUB_SUBDOMAIN }}'
+          repository-name: '${{ env.TARGET_REPO }}'
+          target-folder: '${{ env.TARGET_PATH }}'
           clean: $ENVIRONMENT == 'production' # Set to false if deploying to a composite repository's root!
 
       - name: Post-deployment notification

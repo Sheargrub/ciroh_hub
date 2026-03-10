@@ -25,6 +25,7 @@ jobs:
         echo "DEPLOY_ENV=${{ github.event.client_payload.deploy_env }}" >> $GITHUB_ENV
         echo "TARGET_REPO=${{ github.event.client_payload.target_repo }}" >> $GITHUB_ENV
         echo "TARGET_PATH=${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
+        echo "COMMIT_HEADER=${{ github.events.client_payload.commit_header }}" >> $GITHUB_ENV
         echo "PR_NUMBER=${{ github.event.client_payload.pr_number }}" >> $GITHUB_ENV
         
         if {{ target_path != '.' }}; then
@@ -133,4 +134,4 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         event-type: build-completed
-        client-payload: '{"env": "${{ env.DEPLOY_ENV }}", "version": "${{ env.VERSION }}", "target_repo": "${{ env.TARGET_REPO }}", "target_path": "{{ env.TARGET_PATH }}", "short_hash": "${{ steps.short-sha.outputs.SHORT_SHA }}", "commit_hash": "${{ github.sha }}", "commit_header": "${{ github.events.client_payload.commit_header }}", "branch": "${{ github.ref_name }}", "pr_number": "${{ env.PR_NUMBER }}", "target_description": "/${{ env.TARGET_PATH }} @ ${{ env.TARGET_REPO }}"}'
+        client-payload: '{"env": "${{ env.DEPLOY_ENV }}", "version": "${{ env.VERSION }}", "target_repo": "${{ env.TARGET_REPO }}", "target_path": "{{ env.TARGET_PATH }}", "short_hash": "${{ steps.short-sha.outputs.SHORT_SHA }}", "commit_hash": "${{ github.sha }}", "commit_header": "${{ env.COMMIT_HEADER }}", "branch": "${{ github.ref_name }}", "pr_number": "${{ env.PR_NUMBER }}", "target_description": "/${{ env.TARGET_PATH }} @ ${{ env.TARGET_REPO }}"}'
