@@ -86,7 +86,7 @@ jobs:
             echo "Production build artifact uploaded. Deployment to GitHub Pages will complete in the next job." >> $GITHUB_STEP_SUMMARY
           else
             echo "Staging deployment completed successfully!"
-            echo "To deploy to production, manually trigger the 'CI: Trigger staging deployment from main' workflow."
+            echo "To deploy to production, manually trigger the 'CI: Trigger deployment from main' workflow."
           fi
 
   deploy-production:
