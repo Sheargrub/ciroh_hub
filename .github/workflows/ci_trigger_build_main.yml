@@ -43,7 +43,7 @@ jobs:
           echo "TARGET_PATH=${{ env.STAGING_PATH }}${{ env.STAGING_MAIN_FOLDER }}" >> $GITHUB_ENV
           echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH$STAGING_MAIN_FOLDER"
         fi
-        echo "SOURCE_REF=${{ github.event.ref }}" >> $GITHUB_ENV
+        echo "SOURCE_REF=${{ github.ref }}" >> $GITHUB_ENV
 
     # Checkout to fetch commit header
     - name: Checkout
@@ -52,7 +52,7 @@ jobs:
         ref: ${{ env.SOURCE_REF }}
 
     - name: Fetch commit header
-      run: \
+      run: |
         header="$(git log -1 --pretty=%B | head -n 1)"
         echo "COMMIT_HEADER=${header}" >> $GITHUB_ENV
       # Credit to the solution at https://github.com/orgs/community/discussions/106392
