@@ -84,7 +84,7 @@ jobs:
           if [[ "${{ env.ENVIRONMENT }}" == "production" ]]; then
             echo "### Production build artifact uploaded! 🚀" >> $GITHUB_STEP_SUMMARY
           else
-            echo "### Staging build artifact uploaded! 🚀"
+            echo "### Staging build artifact uploaded! 🚀" >> $GITHUB_STEP_SUMMARY
             echo "To deploy to production, manually trigger the 'CI: Trigger staging deployment from main' workflow." >> $GITHUB_STEP_SUMMARY
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
