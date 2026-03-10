@@ -2,7 +2,7 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
 name: 'CD: Deploy build artifact to composite target'
-run-name: 'Deploy to composite target: "${{github.event.payload.commit_header}}" ➡️ ${{github.event.client_payload.target_description}}'
+run-name: 'Deploy to composite target: "${{github.event.client_payload.commit_header}}" ➡️ ${{github.event.client_payload.target_description}}'
 
 on:
   repository_dispatch:
@@ -48,7 +48,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v2.26.1
         with:
           workflow: ci_pipeline.yml
-          name: build-${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}
+          name: build-${{ env.ENVIRONMENT }}${{ env.PR_NUMBER }}
           path: ./build/
 
       - name: Deploy to composite repository

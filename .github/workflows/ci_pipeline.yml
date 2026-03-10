@@ -25,7 +25,7 @@ jobs:
         echo "DEPLOY_ENV=${{ github.event.client_payload.deploy_env }}" >> $GITHUB_ENV
         echo "TARGET_REPO=${{ github.event.client_payload.target_repo }}" >> $GITHUB_ENV
         echo "TARGET_PATH=${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
-        echo "PR_NUMBER='${{ github.event.client_payload.pr_number }}'" >> $GITHUB_ENV
+        echo "PR_NUMBER=${{ github.event.client_payload.pr_number }}" >> $GITHUB_ENV
         
         if {{ target_path != '.' }}; then
           echo "BASE_URL=${{ vars.BASE_URL_PREFIX }}/${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
