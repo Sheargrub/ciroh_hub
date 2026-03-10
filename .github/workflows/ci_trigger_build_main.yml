@@ -43,9 +43,16 @@ jobs:
           echo "TARGET_PATH=${{ env.STAGING_PATH }}${{ env.STAGING_MAIN_FOLDER }}" >> $GITHUB_ENV
           echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH$STAGING_MAIN_FOLDER"
         fi
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "SOURCE_REF=${{ github.event.ref }}" >> $GITHUB_ENV
 
-    - name: 'Fetch commit header'
+    # Checkout to fetch commit header
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+      - fetch-depth: 0
+      - ref: ${{ env.SOURCE_REF }}
+
+    - name: Fetch commit header
       run: \
         COMMIT_HEADER=$(git log -1 --pretty=%B | head -n 1)
         echo "COMMIT_HEADER=${COMMIT_MESSAGE_HEADER}" >> $GITHUB_ENV
@@ -55,4 +62,4 @@ jobs:
       uses: peter-evans/repository-dispatch@v4
       with:
         event-type: create-build
-        client-payload: '{"deploy_env": "${{ env.DEPLOY_ENV }}", "target_repo": "${{ env.TARGET_REPO }}", "target_path": "${{ env.TARGET_PATH }}", "commit_header": "${{ env.COMMIT_HEADER }}", "type_description": "${{ env.DEPLOY_ENV }}"}'
+        client-payload: '{"deploy_env": "${{ env.DEPLOY_ENV }}", source_ref": "${{ env.SOURCE_REF }}", "target_repo": "${{ env.TARGET_REPO }}", "target_path": "${{ env.TARGET_PATH }}", "commit_header": "${{ env.COMMIT_HEADER }}", "type_description": "${{ env.DEPLOY_ENV }}"}'

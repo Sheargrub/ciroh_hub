@@ -16,8 +16,23 @@ jobs:
     if: contains(${{github.event.labels.*.name}}, 'Preview on staging')
     runs-on: ubuntu-latest
     steps:
-    - name: 'Set deploy target'
+    - name: 'Set deployment target'
       run: echo "DEPLOY_ENV=pr-staging" >> $GITHUB_ENV
+
+    - name: Set deployment target
+      run: |
+        echo "DEPLOY_ENV=pr-staging" >> $GITHUB_ENV
+        echo "TARGET_REPO=$STAGING_REPO" >> $GITHUB_ENV
+        echo "TARGET_PATH=${{ env.STAGING_PATH }}${{ github.event.number }}/" >> $GITHUB_ENV
+        echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH$${{ github.event.number }}/"
+        echo "SOURCE_REF=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+
+    # Checkout to fetch commit header
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+      - fetch-depth: 0
+      - ref: ${{ env.SOURCE_REF }}
 
     - name: 'Fetch commit header'
       run: \
@@ -29,4 +44,4 @@ jobs:
       uses: peter-evans/repository-dispatch@v4
       with:
         event-type: create-build
-        client-payload: '{"deploy_env": "${{ env.DEPLOY_ENV }}", "target_repo": "${{ env.STAGING_REPO }}", "target_path": "${{ env.STAGING_PATH }}${{ github.event.number }}/", "commit_header": "${{ env.COMMIT_HEADER }}", "pr_number": "${{ github.event.number }}", "type_description": "PR #${{ github.event.number }} staging"}'
+        client-payload: '{"deploy_env": "${{ env.DEPLOY_ENV }}", "source_ref": "${{ env.SOURCE_REF }}", "target_repo": "${{ env.TARGET_REPO }}", "target_path": "${{ env.TARGET_PATH }}", "commit_header": "${{ env.COMMIT_HEADER }}", "pr_number": "${{ github.event.number }}", "type_description": "PR #${{ github.event.number }} staging"}'
