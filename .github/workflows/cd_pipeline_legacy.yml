@@ -4,6 +4,7 @@
 # Will soon be renamed to cd_deploy_legacy.yml.
 
 name: 'CD: Deploy build artifact to GitHub Pages (legacy)'
+run-name: 'CD: Deploy build artifact to GitHub Pages (legacy)'
 
 on:
   repository_dispatch:

@@ -2,6 +2,7 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
 name: 'CD: Deploy build artifact to composite target'
+run-name: 'Deploy to composite target: "${{github.event.ref}}" ➡️ ${{github.event.client_payload.descriptor}}'
 
 on:
   repository_dispatch:
@@ -69,10 +70,6 @@ jobs:
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Deployment preview
-        run: |
-          echo "Deploying to $TARGET_REPO as $ENVIRONMENT at path $TARGET_PATH"
-
       - name: Deploy to composite repository
         uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -87,7 +84,7 @@ jobs:
           if [[ "${{ env.ENVIRONMENT }}" == "production" ]]; then
             echo "### Production build artifact uploaded! 🚀" >> $GITHUB_STEP_SUMMARY
           else
-            echo "Staging build artifact uploaded! 🚀"
+            echo "### Staging build artifact uploaded! 🚀"
             echo "To deploy to production, manually trigger the 'CI: Trigger staging deployment from main' workflow." >> $GITHUB_STEP_SUMMARY
           fi
           echo "" >> $GITHUB_STEP_SUMMARY

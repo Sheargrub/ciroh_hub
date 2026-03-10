@@ -1,6 +1,7 @@
 # Triggers a CI/CD deployment from the main branch to production.
 
 name: 'CI: Trigger production deployment from main'
+run-name: 'Trigger deployment to staging: "${{github.event.ref}}"'
 
 on:
   workflow_dispatch:
