@@ -205,14 +205,14 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (
       {
-        /*announcementBar: {
-          id: 'scimeet25_survey_notice',
+        announcementBar: {
+          id: 'pr_notice',
           content:
-            '🔧 Do you have any thoughts on CIROH Hub or Portal? We\'d love to hear from you! <a target="_blank" rel="noopener noreferrer" href="'+baseUrl+'scimeet25survey">Take the CIROH Hub/Portal User Survey here</a>.',
+            'This is a PR branch!',
           backgroundColor: '#0081d2ff',
           textColor: '#fff',
-          isCloseable: true,
-        },*/
+          isCloseable: false,
+        },
         colorMode: {
           defaultMode: 'dark',
           disableSwitch: false,
