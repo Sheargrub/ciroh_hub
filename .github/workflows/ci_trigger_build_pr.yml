@@ -1,7 +1,7 @@
 # Triggers a CI/CD deployment from the main branch to staging.
 
 name: 'CI: Trigger deployment from PR'
-run-name: 'Trigger PR deployment from PR #${{ github.event.number }}"'
+run-name: 'Trigger PR deployment from PR #${{ github.event.number }}'
 
 on:
   pull_request_target:
@@ -17,8 +17,9 @@ jobs:
     steps:
     - name: 'Echo conditions'
       run: |
+        echo "Labels: ${{ github.event.labels }}"
         echo "Has flag: ${{ contains(github.event.labels.*.name, 'Preview on staging') }}"
-        echo "Is a labelling action: ${{ github.event.action != 'labeled' }}"
+        echo "Is a labelling action: ${{ github.event.action == 'labeled' }}"
         echo "Is applying flag: ${{ github.label.name == 'Preview on staging' }}"
 
   trigger-build:
