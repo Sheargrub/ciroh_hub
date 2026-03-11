@@ -27,7 +27,7 @@ jobs:
           ref: refs/heads/main
 
       # Get environment, version, etc from dispatch payload
-      - name: Echo inputs from dispatch
+      - name: Fetch inputs from dispatch
         run: |
           echo "ENVIRONMENT=${{ github.event.client_payload.env }}" >> $GITHUB_ENV
           echo "VERSION=${{ github.event.client_payload.version }}" >> $GITHUB_ENV
@@ -39,6 +39,8 @@ jobs:
           echo "environment=${{ github.event.client_payload.env }}" >> $GITHUB_OUTPUT
           echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
 
+      - name: Echo inputs from dispatch
+        run: |
           echo "Deploying commit ${{ github.event.client_payload.commit_hash }}"
           echo "Commit header: ${{ github.event.client_payload.commit_header }}"
           echo "Branch: ${{ github.event.client_payload.branch }}"
@@ -58,10 +60,12 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build
-          ssh-key: '${{ secrets.SSH_DEPLOY_HUB_SUBDOMAIN }}'
-          repository-name: '${{ env.TARGET_REPO }}'
-          target-folder: '${{ env.TARGET_PATH }}'
+          ssh-key: ${{ secrets.SSH_DEPLOY_HUB_SUBDOMAIN }}
+          repository-name: ${{ env.TARGET_REPO }}
+          target-folder: ${{ env.TARGET_PATH }}
           clean: $ENVIRONMENT == 'production' # Set to false if deploying to a composite repository's root!
+          git-config-name: "github-actions"
+          git-config-email: "github-actions@github.com"
 
       - name: Post-deployment notification
         run: |

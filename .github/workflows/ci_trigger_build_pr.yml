@@ -1,10 +1,10 @@
 # Triggers a CI/CD deployment from the main branch to staging.
 
 name: 'CI: Trigger deployment from PR'
-run-name: 'Trigger PR deployment on ref "${{github.ref}}"'
+run-name: 'Trigger PR deployment on ref "${{github.event.pull_request.head.ref}}"'
 
 on:
-  pull_request:
+  pull_request_target:
     types: [labeled, reopened, synchronize]
 
 env:
@@ -25,7 +25,7 @@ jobs:
         echo "TARGET_REPO=$STAGING_REPO" >> $GITHUB_ENV
         echo "TARGET_PATH=${{ env.STAGING_PATH }}${{ github.event.number }}/" >> $GITHUB_ENV
         echo "Deploying to $STAGING_REPO as STAGING at path $STAGING_PATH${{ github.event.number }}/"
-        echo "SOURCE_REF=${{ github.ref }}" >> $GITHUB_ENV
+        echo "SOURCE_REF=${{ github.event.pull_request.head.refgithub.ref }}" >> $GITHUB_ENV
 
     # Checkout to fetch commit header
     - name: Checkout
