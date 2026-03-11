@@ -13,7 +13,7 @@ env:
 
 jobs:
   trigger-build:
-    if: contains(${{github.event.labels.*.name}}, 'Preview on staging')
+    if: ${{ contains(github.event.labels.*.name, 'Preview on staging') && ( github.event.action != 'labeled' || github.label.name == 'Preview on staging' ) }}
     runs-on: ubuntu-latest
     steps:
     - name: 'Set deployment target'
@@ -29,7 +29,7 @@ jobs:
 
     # Checkout to fetch commit header
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         ref: ${{ env.SOURCE_REF }}
         filter: 'blob:none' # only retrieve metadata
