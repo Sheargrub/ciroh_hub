@@ -18,12 +18,12 @@ jobs:
     - name: 'Echo conditions'
       run: |
         echo "Labels: ${{ github.event.labels }}"
-        echo "Has flag: ${{ contains(github.event.labels.*.name, 'Preview on staging') }}"
+        echo "Has flag: ${{ contains(github.event.pull_request.labels.*.name, 'Preview on staging') }}"
         echo "Is a labelling action: ${{ github.event.action == 'labeled' }}"
-        echo "Is applying flag: ${{ github.label.name == 'Preview on staging' }}"
+        echo "Is applying flag: ${{ github.event.label.name == 'Preview on staging' }}"
 
   trigger-build:
-    if: ${{ contains(github.event.labels.*.name, 'Preview on staging') && ( github.event.action != 'labeled' || github.label.name == 'Preview on staging' ) }}
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'Preview on staging') && ( github.event.action != 'labeled' || github.event.label.name == 'Preview on staging' ) }}
     runs-on: ubuntu-latest
     steps:
     - name: 'Set deployment target'
