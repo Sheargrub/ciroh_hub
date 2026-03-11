@@ -22,9 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          # Ensure detached HEAD state to avoid conflicts with the main branch
-          ref: refs/heads/main
+          filter: 'blob:none' # only retrieve metadata
 
       # Get environment, version, etc from dispatch payload
       - name: Fetch inputs from dispatch
