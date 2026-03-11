@@ -1,7 +1,7 @@
 # Triggers a CI/CD deployment from the main branch to staging.
 
 name: 'CI: Trigger deployment from PR'
-run-name: 'Trigger PR deployment on ref "${{github.event.pull_request.head.ref}}"'
+run-name: 'Trigger PR deployment from PR #${{ github.event.number }}"'
 
 on:
   pull_request_target:
