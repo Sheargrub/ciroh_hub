@@ -28,7 +28,7 @@ jobs:
         echo "COMMIT_HEADER=${{ github.event.client_payload.commit_header }}" >> $GITHUB_ENV
         echo "PR_NUMBER=${{ github.event.client_payload.pr_number }}" >> $GITHUB_ENV
         
-        if {{ target_path != '.' }}; then
+        if ${{ target_path != '.' }}; then
           echo "BASE_URL=${{ vars.BASE_URL_PREFIX }}/${{ github.event.client_payload.target_path }}" >> $GITHUB_ENV
         else
           echo "BASE_URL=${{ vars.BASE_URL_PREFIX }}/" >> $GITHUB_ENV
