@@ -24,20 +24,21 @@ jobs:
           git config --global user.email github-actions@github.com
 
       - name: Checkout staging repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ env.TARGET_REPO }}
           fetch-depth: 0
           path: "staging-deploy"
           ssh-key: ${{ secrets.SSH_DEPLOY_NGIAB_SUBDOMAIN }}
-          sparse-checkout: ${{ env.TARGET_PATH }}
+          sparse-checkout: |
+            ${{ env.TARGET_PATH }}
 
       - name: Remove PR folder from staging repository
         run: |
           cd staging-deploy
           
           # If no such folder exists, exit
-          if [ -d "./${{ env.TARGET_PATH }}" ]; then
+          if [ ! -d "./${{ env.TARGET_PATH }}" ]; then
             echo "Nothing to clean up, exiting."
             exit 0
           fi
