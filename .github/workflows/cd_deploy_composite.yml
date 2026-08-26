@@ -10,6 +10,9 @@ on:
       build-id:
         required: true
         type: string
+      build-run-id:
+        required: true
+        type: string
       metadata-id:
         required: true
         type: string
@@ -21,6 +24,10 @@ on:
         required: false
         type: string
         default: '?'
+
+concurrency:
+  group: "deploys-to-remote"
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -93,7 +100,7 @@ jobs:
         with:
           artifact-ids: ${{ inputs.build-id }}
           path: build/
-          run-id: ${{ github.event.workflow_run.id }}
+          run-id: ${{ inputs.build-run-id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to composite repository

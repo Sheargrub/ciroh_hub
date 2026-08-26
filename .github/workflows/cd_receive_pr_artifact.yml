@@ -24,6 +24,7 @@ jobs:
       title-dest: ${{ env.TITLE_DEST }}
       should-notify: ${{ env.SHOULD_NOTIFY }}
       target-path: ${{ env.TARGET_PATH }}
+      pr-number: ${{ steps.validate-and-save.outputs.pr-number }}
 
     steps:
     - name: Download PR CD payload
@@ -58,6 +59,7 @@ jobs:
         echo "PAYLOAD_NAME=build_metadata.json" >> $GITHUB_ENV
       
     - name: Validate and save payload metadata
+      id: validate-and-save
       env:
         STAGING_PATH: staging/
         DEPLOY_ENV: ${{ fromJson(env.METADATA_JSON).deploy_env }}
@@ -89,6 +91,7 @@ jobs:
         echo "**Target path**: $TARGET_PATH" >> $GITHUB_STEP_SUMMARY
 
         echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
+        echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
 
         mkdir $PAYLOAD_DIR
         echo $METADATA_JSON > $PAYLOAD_DIR/$PAYLOAD_NAME
@@ -107,6 +110,7 @@ jobs:
     needs: extract-config
     with:
       build-id: ${{ needs.extract-config.outputs.build-id }}
+      build-run-id: ${{ github.event.workflow_run.id }}
       metadata-id: ${{ needs.extract-config.outputs.metadata-id }}
       title-source: ${{ needs.extract-config.outputs.title-source }}
       title-dest: ${{ needs.extract-config.outputs.title-dest }}
@@ -126,3 +130,4 @@ jobs:
           _Will be live within ~10 minutes of this message_
             
           _Built from commit ${{ github.sha }}_
+        issue: ${{ needs.extract-config.outputs.pr-number }}

@@ -128,7 +128,7 @@ jobs:
       id: output-params
       run: |
         mkdir $PAYLOAD_DIR
-        echo {\"build_id\": \"${BUILD_ID}\", \"metadata\": ${PAYLOAD_JSON}, \"title_source\": \"${TITLE_SOURCE}\", \"title_dest\": \"${TITLE_DEST}\", \"should_notify\": \"${{ needs.prepare-build.outputs.should_notify }}\"} > $PAYLOAD_DIR/$PAYLOAD_NAME
+        echo {\"build_id\": \"${BUILD_ID}\", \"metadata\": ${PAYLOAD_JSON}, \"title_source\": \"${TITLE_SOURCE}\", \"title_dest\": \"${TITLE_DEST}\", \"should_notify\": \"${{ needs.prepare-build.outputs.should-notify }}\"} > $PAYLOAD_DIR/$PAYLOAD_NAME
         cat $PAYLOAD_DIR/$PAYLOAD_NAME
 
     - name: Upload build metadata artifact

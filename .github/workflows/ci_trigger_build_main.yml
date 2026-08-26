@@ -107,6 +107,7 @@ jobs:
     needs: [prepare-build, build]
     with:
       build-id: ${{ needs.build.outputs.build-id }}
+      build-run-id: ${{ github.run_id }}
       metadata-id: ${{ needs.build.outputs.metadata-id }}
       title-source: main
       title-dest: ${{ needs.prepare-build.outputs.title-dest }}
