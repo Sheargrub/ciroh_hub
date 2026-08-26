@@ -29,25 +29,31 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         name: pr-cd-payload.json
-        path: ${{ runner.temp }}/payloads/pr_cd_payload.json
+        path: ${{ runner.temp }}/
         run-id: ${{ github.event.workflow_run.id }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Unpack payload inputs
       id: extract-json
       run: |
-        payload=cat ${{ runner.temp }}/payloads/pr_cd_payload.json
+        payload=`cat ${{ runner.temp }}/pr_cd_payload.json`
         echo "payload_json=$payload" >> $GITHUB_OUTPUT
     
     - name: Parse payload inputs
+      env:
+        TEMP_BUILD_ID: ${{ fromJson(steps.extract-json.outputs.payload_json).build_id }}
+        TEMP_METADATA: ${{ fromJson(steps.extract-json.outputs.payload_json) }}
+        TEMP_SOURCE: ${{ fromJson(steps.extract-json.outputs.payload_json).title_source }}
+        TEMP_DEST: ${{ fromJson(steps.extract-json.outputs.payload_json).title_dest }}
+        TEMP_SN: ${{ fromJson(steps.extract-json.outputs.payload_json).should_notify }}
       run: |
-        echo "BUILD_ID=${{ fromJson(steps.extract-json.outputs.payload_json).build_id }}" >> $GITHUB_ENV
-        echo "METADATA_JSON=${{ fromJson(steps.extract-json.outputs.payload_json) }}" >> $GITHUB_ENV
-        echo "TITLE_SOURCE=${{ fromJson(steps.extract-json.outputs.payload_json).title_source }}" >> $GITHUB_ENV
-        echo "TITLE_DEST=${{ fromJson(steps.extract-json.outputs.payload_json).title_dest }}" >> $GITHUB_ENV
-        echo "SHOULD_NOTIFY=${{ fromJson(steps.extract-json.outputs.payload_json).should_notify }}" >> $GITHUB_ENV
+        echo "BUILD_ID=$TEMP_BUILD_ID" >> $GITHUB_ENV
+        echo "METADATA_JSON=$TEMP_METADATA" >> $GITHUB_ENV
+        echo "TITLE_SOURCE=$TEMP_SOURCE" >> $GITHUB_ENV
+        echo "TITLE_DEST=$TEMP_DEST" >> $GITHUB_ENV
+        echo "SHOULD_NOTIFY=$TEMP_SN" >> $GITHUB_ENV
 
-        echo "PAYLOAD_DIR=${{ runner.temp }}/payloads" >> $GITHUB_ENV
+        echo "PAYLOAD_DIR=./payloads" >> $GITHUB_ENV
         echo "PAYLOAD_NAME=build_metadata.json" >> $GITHUB_ENV
       
     - name: Validate and save payload metadata
@@ -83,7 +89,6 @@ jobs:
 
         echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
 
-        mkdir $PAYLOAD_DIR
         echo $METADATA_JSON > $PAYLOAD_DIR/$PAYLOAD_NAME
         cat $PAYLOAD_DIR/$PAYLOAD_NAME
 
@@ -94,12 +99,10 @@ jobs:
       with:
         name: ${{ env.PAYLOAD_NAME }}
         path: ${{ env.PAYLOAD_DIR }}/${{ env.PAYLOAD_NAME }}
-        archive: false
 
   call-deployment:
     uses: $/.github/workflows/cd_deploy_composite.yml
     needs: extract-config
-    # TODO: Permissions
     with:
       build-id: ${{ needs.extract-config.outputs.build-id }}
       metadata-id: ${{ needs.extract-config.outputs.metadata-id }}
