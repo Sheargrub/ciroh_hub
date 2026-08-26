@@ -78,14 +78,14 @@ jobs:
     - name: Output build parameters
       run: |
         echo {"deploy_env": "{$DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "type_description": "${DEPLOY_ENV}"} > ${{ runner.temp }}/main_${DEPLOY_ENV}_build.json
-        cat ${{ runner.temp }}/main_${DEPLOY_ENV}_build.json
+        cat ${{ runner.temp }}/payloads/build_params.json
         
     - name: Upload build parameters
       id: upload-params
       uses: actions/upload-artifact@v7
       with:
         name: main_${{ env.DEPLOY_ENV }}_build
-        path: ${{ runner.temp }}/main_${{ env.DEPLOY_ENV }}_build.json
+        path: ${{ runner.temp }}/payloads/
 
   build:
     uses: $/.github/workflows/ci_build.yml

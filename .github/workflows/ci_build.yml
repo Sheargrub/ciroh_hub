@@ -52,13 +52,13 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         artifact-ids: ${{ inputs.config-id }}
-        path: ${{ runner.temp }}
+        path: ${{ runner.temp }}/payload/
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Unpack payload inputs
       id: extract-json
       run: |
-        payload=cat ${{ runner.temp }}/build_config.json
+        payload=cat ${{ runner.temp }}/payload/build_params.json
         echo "payload-json=$payload" >> $GITHUB_OUTPUT
         echo $payload
     
@@ -187,11 +187,11 @@ jobs:
       id: define-metadata
       run: |
         echo {"deploy_env": "${DEPLOY_ENV}", "version": "${VERSION}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "short_hash": "${{ steps.short-sha.outputs.SHORT_SHA }}", "commit_hash": "${{ github.sha }}", "commit_header": "${COMMIT_HEADER}", "branch": "${{ github.ref_name }}", "pr_number": "${PR_NUMBER}"} > ${{ runner.temp }}/build_${DEPLOY_ENV}${PR_NUMBER}_metadata.json
-        echo ${{ runner.temp }}/build_${DEPLOY_ENV}${PR_NUMBER}_metadata.json
+        echo ${{ runner.temp }}/payloads/build_metadata.json
 
     - name: Upload build metadata artifact
       id: upload-metadata
       uses: actions/upload-artifact@v7
       with:
-        name: build-metadata-${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}
-        path: ${{ runner.temp }}/build_${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}_metadata.json
+        name: build-metadata-${{ env.DEPLOY_ENV }}
+        path: ${{ runner.temp }}/payloads/

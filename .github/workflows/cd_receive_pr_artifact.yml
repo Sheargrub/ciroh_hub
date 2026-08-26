@@ -29,7 +29,7 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         name: pr-cd-payload
-        path: ${{ runner.temp }}
+        path: ${{ runner.temp }}/payloads
         run-id: ${{ github.event.workflow_run.id }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -80,8 +80,8 @@ jobs:
 
         echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
 
-        echo $METADATA_JSON > ${{ runner.temp }}/build_${DEPLOY_ENV}${PR_NUMBER}_metadata.json
-        echo ${{ runner.temp }}/build_${DEPLOY_ENV}${PR_NUMBER}_metadata.json
+        echo $METADATA_JSON > ${{ runner.temp }}/payloads/build_metadata.json
+        echo ${{ runner.temp }}/build_metadata.json
 
     # Artifacts can't be reused once downloaded, so we need to upload this again.
     - name: Upload build metadata artifact
@@ -92,7 +92,7 @@ jobs:
         PR_NUMBER: ${{ fromJson(env.METADATA_JSON).pr_number }}
       with:
         name: build-metadata-${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}
-        path: ${{ runner.temp }}/build_${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}_metadata.json
+        path: ${{ runner.temp }}/payloads/
 
   call-deployment:
     uses: $/.github/workflows/cd_deploy_composite.yml
