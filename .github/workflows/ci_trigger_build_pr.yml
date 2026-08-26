@@ -125,7 +125,7 @@ jobs:
 
     - name: Upload build metadata artifact
       id: upload-metadata
-      uses: actions/upload-artifact@v8
+      uses: actions/upload-artifact@v7
       with:
         # Note: due to limitations with workflow_run, this payload's name must be static
         name: pr-cd-payload
