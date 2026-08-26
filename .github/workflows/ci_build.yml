@@ -58,7 +58,7 @@ jobs:
     - name: Unpack payload inputs
       id: extract-json
       run: |
-        payload='cat ${{ runner.temp }}/build_config.json'
+        payload=cat ${{ runner.temp }}/build_config.json
         echo "payload-json=$payload" >> $GITHUB_OUTPUT
     
     - name: Parse payload inputs
@@ -161,9 +161,7 @@ jobs:
       id: upload-build
       uses: actions/upload-artifact@v7
       with:
-        # Artifact name
         name: build-${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}
-        # A file, directory or wildcard pattern that describes what to upload
         path: build/
 
     - name: Create release
@@ -171,12 +169,12 @@ jobs:
       uses: actions/create-release@v1
       id: create_release
       env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-          tag_name: v${{env.VERSION}}
-          release_name: Release v${{env.VERSION}}
-          draft: false
-          prerelease: false
+        tag_name: v${{env.VERSION}}
+        release_name: Release v${{env.VERSION}}
+        draft: false
+        prerelease: false
 
     # Get short SHA
     - name: Get short SHA
@@ -194,7 +192,6 @@ jobs:
       id: upload-metadata
       uses: actions/upload-artifact@v7
       with:
-        # Artifact name
         name: build-metadata-${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}
-        # A file, directory or wildcard pattern that describes what to upload
         path: ${{ runner.temp }}/build_${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}_metadata.json
+        archive: false

@@ -36,7 +36,7 @@ jobs:
     - name: Unpack payload inputs
       id: extract-json
       run: |
-        payload='cat ${{ runner.temp }}/pr_cd_payload.json'
+        payload=cat ${{ runner.temp }}/pr_cd_payload.json
         echo "payload_json=$payload" >> $GITHUB_OUTPUT
     
     - name: Parse payload inputs
@@ -91,10 +91,9 @@ jobs:
         DEPLOY_ENV: ${{ fromJson(env.METADATA_JSON).deploy_env }}
         PR_NUMBER: ${{ fromJson(env.METADATA_JSON).pr_number }}
       with:
-        # Artifact name
         name: build-metadata-${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}
-        # A file, directory or wildcard pattern that describes what to upload
         path: ${{ runner.temp }}/build_${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}_metadata.json
+        archive: false
 
   call-deployment:
     uses: $/.github/workflows/cd_deploy_composite.yml

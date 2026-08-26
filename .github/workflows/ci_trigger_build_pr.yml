@@ -81,6 +81,7 @@ jobs:
       with:
         name: pr_${{ github.event.number }}_build
         path: ${{ runner.temp }}/pr_${{ github.event.number }}_build.json
+        archive: false
 
   build:
     uses: $/.github/workflows/ci_build.yml
@@ -114,7 +115,7 @@ jobs:
     - name: Unpack payload inputs
       id: extract-json
       run: |
-        payload='cat ${{ runner.temp }}/build_metadata.json'
+        payload=cat ${{ runner.temp }}/build_metadata.json
         echo "PAYLOAD_JSON=$payload" >> $GITHUB_ENV
 
     - name: Write deployment params to JSON
@@ -127,9 +128,8 @@ jobs:
       id: upload-metadata
       uses: actions/upload-artifact@v7
       with:
-        # Note: due to limitations with workflow_run, this payload's name must be static
         name: pr-cd-payload
-        # A file, directory or wildcard pattern that describes what to upload
         path: ${{ runner.temp }}/pr_cd_payload.json
+        archive: false
 
   # For permission-management reasons, the next steps are handled in cd_receive_pr_artifact.

@@ -52,7 +52,7 @@ jobs:
       - name: Unpack payload inputs
         id: extract-json
         run: |
-          payload='cat ${{ runner.temp }}/build_metadata.json'
+          payload=cat ${{ runner.temp }}/build_metadata.json
           echo "payload_json=$payload" >> $GITHUB_OUTPUT
       
       - name: Parse payload inputs
