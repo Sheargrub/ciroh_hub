@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           artifact-ids: ${{ inputs.metadata-id }}
-          path: ${{ runner.temp }}/build_metadata.json
+          path: ${{ runner.temp }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # Get environment, version, etc from config payload

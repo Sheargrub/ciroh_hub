@@ -52,7 +52,7 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         artifact-ids: ${{ inputs.config-id }}
-        path: ${{ runner.temp }}/build_config.json
+        path: ${{ runner.temp }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Unpack payload inputs
@@ -60,6 +60,7 @@ jobs:
       run: |
         payload=cat ${{ runner.temp }}/build_config.json
         echo "payload-json=$payload" >> $GITHUB_OUTPUT
+        echo $payload
     
     - name: Parse payload inputs
       id: parse-json
