@@ -29,7 +29,7 @@ jobs:
       title-header: ${{ steps.fetch-commit-header.outputs.header }}
       title-source: ${{ steps.set-deployment-target.outputs.source }}
       title-dest: ${{ steps.set-deployment-target.outputs.destination }}
-      should-notify: ${{ vars.SILENCE_COMPOSITE_PR_MESSAGE != 'true' && github.event.action == 'labeled' && github.event.label.name == 'preview on staging' }}
+      should-notify: ${{ toJson(vars.SILENCE_COMPOSITE_PR_MESSAGE != 'true' && github.event.action == 'labeled' && github.event.label.name == 'preview on staging') }}
 
     steps:
     - name: Set deployment target
