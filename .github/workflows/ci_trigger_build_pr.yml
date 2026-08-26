@@ -72,7 +72,7 @@ jobs:
     # Establish build params
     - name: Output build parameters
       run: |
-        echo {"deploy_env": "${DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "pr_number": "${{ github.event.number }}"} > ${{ runner.temp }}/pr_${{ github.event.number }}_build.json
+        echo {"deploy_env": "${DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "pr_number": "${{ github.event.number }}"} > ${{ runner.temp }}/payloads/build_params.json
         cat ${{ runner.temp }}/payloads/build_params.json
 
     - name: Upload build parameters
@@ -120,14 +120,14 @@ jobs:
     - name: Write deployment params to JSON
       id: output-params
       run: |
-        echo {"build_id": "${BUILD_ID}", "metadata": ${PAYLOAD_JSON}, "title_source": "${TITLE_SOURCE}", "title_dest": "${TITLE_DEST}", "should_notify": ${SHOULD_NOTIFY}} > ${{ runner.temp }}/pr_cd_payload.json
-        cat ${{ runner.temp }}/pr_cd_payload.json
+        echo {"build_id": "${BUILD_ID}", "metadata": ${PAYLOAD_JSON}, "title_source": "${TITLE_SOURCE}", "title_dest": "${TITLE_DEST}", "should_notify": ${SHOULD_NOTIFY}} > ${{ runner.temp }}/payloads/pr_cd_payload.json
+        cat ${{ runner.temp }}/payloads/pr_cd_payload.json
 
     - name: Upload build metadata artifact
       id: upload-metadata
       uses: actions/upload-artifact@v7
       with:
         name: pr-cd-payload
-        path: ${{ runner.temp }}/pr_cd_payload.json
+        path: ${{ runner.temp }}/payloads
 
   # For permission-management reasons, the next steps are handled in cd_receive_pr_artifact.

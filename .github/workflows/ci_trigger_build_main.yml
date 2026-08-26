@@ -77,7 +77,7 @@ jobs:
     # Establish build params
     - name: Output build parameters
       run: |
-        echo {"deploy_env": "{$DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "type_description": "${DEPLOY_ENV}"} > ${{ runner.temp }}/main_${DEPLOY_ENV}_build.json
+        echo {"deploy_env": "{$DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "type_description": "${DEPLOY_ENV}"} > ${{ runner.temp }}/payloads/build_params.json
         cat ${{ runner.temp }}/payloads/build_params.json
         
     - name: Upload build parameters

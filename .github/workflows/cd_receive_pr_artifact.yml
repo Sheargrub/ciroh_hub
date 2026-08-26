@@ -81,7 +81,7 @@ jobs:
         echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
 
         echo $METADATA_JSON > ${{ runner.temp }}/payloads/build_metadata.json
-        echo ${{ runner.temp }}/build_metadata.json
+        echo ${{ runner.temp }}/payloads/build_metadata.json
 
     # Artifacts can't be reused once downloaded, so we need to upload this again.
     - name: Upload build metadata artifact
