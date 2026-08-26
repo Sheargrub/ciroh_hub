@@ -52,7 +52,7 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         artifact-ids: ${{ inputs.config-id }}
-        path: ${{ runner.temp }}/payload/
+        path: ${{ runner.temp }}/payload/build_params.json
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Unpack payload inputs
@@ -182,17 +182,23 @@ jobs:
       id: short-sha
       run: echo "SHORT_SHA=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
     
+    - name: Set payload path
+      run: |
+        echo "PAYLOAD_DIR=${{ runner.temp }}/payloads" >> $GITHUB_ENV
+        echo "PAYLOAD_NAME=build_metadata.json" >> $GITHUB_ENV
+
     # Write build metadata to JSON file
     - name: Write build metadata to JSON
       id: define-metadata
       run: |
-        mkdir ${{ runner.temp }}/payloads
-        echo {"deploy_env": "${DEPLOY_ENV}", "version": "${VERSION}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "short_hash": "${{ steps.short-sha.outputs.SHORT_SHA }}", "commit_hash": "${{ github.sha }}", "commit_header": "${COMMIT_HEADER}", "branch": "${{ github.ref_name }}", "pr_number": "${PR_NUMBER}"} > ${{ runner.temp }}/payloads/build_metadata.json
-        echo ${{ runner.temp }}/payloads/build_metadata.json
+        mkdir $PAYLOAD_DIR
+        echo {"deploy_env": "${DEPLOY_ENV}", "version": "${VERSION}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "short_hash": "${{ steps.short-sha.outputs.SHORT_SHA }}", "commit_hash": "${{ github.sha }}", "commit_header": "${COMMIT_HEADER}", "branch": "${{ github.ref_name }}", "pr_number": "${PR_NUMBER}"} > $PAYLOAD_DIR/$PAYLOAD_NAME
+        cat $PAYLOAD_DIR/$PAYLOAD_NAME
 
     - name: Upload build metadata artifact
       id: upload-metadata
       uses: actions/upload-artifact@v7
       with:
-        name: build-metadata-${{ env.DEPLOY_ENV }}
-        path: ${{ runner.temp }}/payloads/
+        name: ${{ env.PAYLOAD_NAME }}
+        path: ${{ env.PAYLOAD_DIR }}/${{ env.PAYLOAD_NAME }}
+        archive: false

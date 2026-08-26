@@ -75,18 +75,24 @@ jobs:
       # Credit to the solution at https://github.com/orgs/community/discussions/106392
 
     # Establish build params
+    - name: Set payload path
+      run: |
+        echo "PAYLOAD_DIR=${{ runner.temp }}/payloads" >> $GITHUB_ENV
+        echo "PAYLOAD_NAME=build_params.json" >> $GITHUB_ENV
+
     - name: Output build parameters
       run: |
-        mkdir ${{ runner.temp }}/payloads
-        echo {"deploy_env": "{$DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "type_description": "${DEPLOY_ENV}"} > ${{ runner.temp }}/payloads/build_params.json
-        cat ${{ runner.temp }}/payloads/build_params.json
+        mkdir $PAYLOAD_DIR
+        echo {"deploy_env": "{$DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "type_description": "${DEPLOY_ENV}"} > $PAYLOAD_DIR/$PAYLOAD_NAME
+        cat $PAYLOAD_DIR/$PAYLOAD_NAME
         
     - name: Upload build parameters
       id: upload-params
       uses: actions/upload-artifact@v7
       with:
-        name: main_${{ env.DEPLOY_ENV }}_build
-        path: ${{ runner.temp }}/payloads/
+        name: ${{ env.PAYLOAD_NAME }}
+        path: ${{ env.PAYLOAD_DIR }}/${{ env.PAYLOAD_NAME }}
+        archive: false
 
   build:
     uses: $/.github/workflows/ci_build.yml

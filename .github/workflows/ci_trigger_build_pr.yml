@@ -70,18 +70,23 @@ jobs:
       # Credit to the solution at https://github.com/orgs/community/discussions/106392
     
     # Establish build params
+    - name: Set payload path
+      run: |
+        echo "PAYLOAD_DIR=${{ runner.temp }}/payloads" >> $GITHUB_ENV
+        echo "PAYLOAD_NAME=build_params.json" >> $GITHUB_ENV
+
     - name: Output build parameters
       run: |
-        mkdir ${{ runner.temp }}/payloads
-        echo {"deploy_env": "${DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "pr_number": "${{ github.event.number }}"} > ${{ runner.temp }}/payloads/build_params.json
-        cat ${{ runner.temp }}/payloads/build_params.json
+        mkdir $PAYLOAD_DIR
+        echo {"deploy_env": "${DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "pr_number": "${{ github.event.number }}"} > $PAYLOAD_DIR/$PAYLOAD_NAME
 
     - name: Upload build parameters
       id: upload-params
       uses: actions/upload-artifact@v7
       with:
-        name: pr_${{ github.event.number }}_build
-        path: ${{ runner.temp }}/payloads/
+        name: ${{ env.PAYLOAD_NAME }}
+        path: ${{ env.PAYLOAD_DIR }}/${{ env.PAYLOAD_NAME }}
+        archive: false
 
   build:
     uses: $/.github/workflows/ci_build.yml
@@ -108,28 +113,31 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         artifact-ids: ${{ needs.build.outputs.metadata-id }}
-        path: ${{ runner.temp }}
+        path: ${{ runner.temp }}/payloads/build_metadata.json
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     # Get environment, version, etc from config payload
     - name: Unpack payload inputs
       id: extract-json
       run: |
-        payload=cat ${{ runner.temp }}/build_metadata.json
+        payload=cat ${{ runner.temp }}/payloads/build_metadata.json
         echo "PAYLOAD_JSON=$payload" >> $GITHUB_ENV
+        echo "PAYLOAD_DIR=${{ runner.temp }}/payloads" >> $GITHUB_ENV
+        echo "PAYLOAD_NAME=pr_cd_payload.json" >> $GITHUB_ENV
 
     - name: Write deployment params to JSON
       id: output-params
       run: |
-        mkdir ${{ runner.temp }}/payloads
-        echo {"build_id": "${BUILD_ID}", "metadata": ${PAYLOAD_JSON}, "title_source": "${TITLE_SOURCE}", "title_dest": "${TITLE_DEST}", "should_notify": ${SHOULD_NOTIFY}} > ${{ runner.temp }}/payloads/pr_cd_payload.json
-        cat ${{ runner.temp }}/payloads/pr_cd_payload.json
+        mkdir $PAYLOAD_DIR
+        echo {"build_id": "${BUILD_ID}", "metadata": ${PAYLOAD_JSON}, "title_source": "${TITLE_SOURCE}", "title_dest": "${TITLE_DEST}", "should_notify": ${SHOULD_NOTIFY}} > $PAYLOAD_DIR/$PAYLOAD_NAME
+        cat $PAYLOAD_DIR/$PAYLOAD_NAME
 
     - name: Upload build metadata artifact
       id: upload-metadata
       uses: actions/upload-artifact@v7
       with:
-        name: pr-cd-payload
-        path: ${{ runner.temp }}/payloads
+        name: ${{ env.PAYLOAD_NAME }}
+        path: ${{ env.PAYLOAD_DIR }}/${{ env.PAYLOAD_NAME }}
+        archive: false
 
   # For permission-management reasons, the next steps are handled in cd_receive_pr_artifact.
