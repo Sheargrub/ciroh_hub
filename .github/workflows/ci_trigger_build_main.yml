@@ -1,7 +1,7 @@
 # Triggers a CI/CD deployment from the main branch to staging.
 
-name: 'CI: Trigger deployment from main'
-run-name: 'Trigger deployment on ref "${{github.ref}}"'
+name: 'CI/CD: Trigger build and deployment from main'
+run-name: 'Trigger build and deployment from main'
 
 on:
   push:
@@ -69,8 +69,8 @@ jobs:
           echo "COMMIT_HEADER=(Unsafe header)" >> $GITHUB_ENV
           echo "header=(Unsafe header)" >> $GITHUB_OUTPUT
         else
-          echo "COMMIT_HEADER=${header}" >> $GITHUB_ENV
-          echo "header=${header}" >> $GITHUB_OUTPUT
+          echo "COMMIT_HEADER=$header" >> $GITHUB_ENV
+          echo "header=$header" >> $GITHUB_OUTPUT
         fi
       # Credit to the solution at https://github.com/orgs/community/discussions/106392
 

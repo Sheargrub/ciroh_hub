@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 'CD: Deploy build artifact to composite target'
+name: 'Callable: Deploy build artifact to composite target'
 run-name: 'Deploy to composite target: ${{ github.event.inputs.title-source }} ➡️ ${{ github.event.inputs.title-dest }}'
 
 on:
@@ -30,7 +30,7 @@ jobs:
       version: ${{ steps.extract-json.outputs.version }}
     permissions:
       contents: read
-      artifact-metadata: read
+      actions: write
     name: Deploy to remote
     steps:
       # Mostly for the sake of the deploy action, which assumes a git directory is present
@@ -93,6 +93,7 @@ jobs:
         with:
           artifact-ids: ${{ inputs.build-id }}
           path: build/
+          run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to composite repository
@@ -110,7 +111,7 @@ jobs:
         run: |
           if [[ "${{ env.DEPLOY_ENV }}" == "production" ]]; then
             echo "### Production build artifact uploaded! 🚀" >> $GITHUB_STEP_SUMMARY
-          elif [[ "${{ env.DEPLOY_ENV }}" == "pr-staging" ]]; then
+          elif [[ "${{ env.DEPLOY_ENV }}" == "staging-pr" ]]; then
             echo "### Staging build artifact uploaded for PR #${{ env.PR_NUMBER }}! 🚀" >> $GITHUB_STEP_SUMMARY
           else
             echo "### Staging build artifact uploaded! 🚀" >> $GITHUB_STEP_SUMMARY
