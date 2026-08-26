@@ -88,34 +88,22 @@ jobs:
         path: ${{ runner.temp }}/main_${{ env.DEPLOY_ENV }}_build.json
 
   build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    uses: $/.github/workflows/ci_build.yml
     needs: prepare-build
-    outputs:
-      build-id: ${{ steps.create-build.outputs.build-id }}
-      metadata-id: ${{ steps.create-build.outputs.metadata-id }}
-      title-dest: ${{ needs.prepare-build.outputs.title-dest }}
-    steps:
-    - name: Create build artifact
-      id: create-build
-      uses: $/.github/workflows/ci_build
-      with:
-        config-id: ${{ needs.prepare-build.outputs.params-id }}
-        title-source: main
-        title-header: ${{ needs.prepare-build.outputs.title-header }}
+    # outputs:
+    #  title-dest: ${{ needs.prepare-build.outputs.title-dest }}
+    with:
+      config-id: ${{ needs.prepare-build.outputs.params-id }}
+      title-source: main
+      title-header: ${{ needs.prepare-build.outputs.title-header }}
+    secrets: inherit
 
   call_deployment:
-    runs-on: ubuntu-latest
+    uses: $/.github/workflows/cd_deploy_composite.yml
     needs: build
-    # TODO: Permissions
-    steps:
-    - name: Call deployment workflow
-      uses: $/.github/workflows/cd_deploy_composite
-      with:
-        build-id: ${{ needs.build.outputs.build-id }}
-        metadata-id: ${{ needs.build.outputs.metadata-id }}
-        title-source: main
-        title-dest: ${{ needs.build.outputs.title-dest }}
+    with:
+      build-id: ${{ needs.build.outputs.build-id }}
+      metadata-id: ${{ needs.build.outputs.metadata-id }}
+      title-source: main
+      title-dest: TODO # ${{ needs.build.outputs.title-dest }}
+    secrets: inherit

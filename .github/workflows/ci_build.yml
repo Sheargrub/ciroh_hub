@@ -4,7 +4,8 @@
 # Trigger logic has been spun out into the various 'ci_trigger_*.yml' workflows.
 
 name: 'CI: Create Build Artifact'
-run-name: 'Create build artifact for ${{inputs.title-source}}: "${{inputs.title-header}}"'
+run-name: 'CI: Create Build Artifact'
+# run-name: 'Create build artifact for ${{github.event.inputs.title-source}}: "${{github.event.inputs.title-header}}"'
 
 on:
   workflow_call:
@@ -55,20 +56,21 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Unpack payload inputs
-      id: extract_json
+      id: extract-json
       run: |
         payload='cat ./payloads/build_config.json'
-        echo "payload_json=$payload" >> $GITHUB_OUTPUT
+        echo "payload-json=$payload" >> $GITHUB_OUTPUT
     
     - name: Parse payload inputs
+      id: parse-json
       run: |
-        echo "SOURCE_REF=${{ fromJson(steps.extract_json.outputs.payloadJson).source_ref }}" >> $GITHUB_ENV
-        echo "SOURCE_REPO=${{ fromJson(steps.extract_json.outputs.payloadJson).source_repo }}" >> $GITHUB_ENV
-        echo "DEPLOY_ENV=${{ fromJson(steps.extract_json.outputs.payloadJson).deploy_env }}" >> $GITHUB_ENV
-        echo "TARGET_REPO=${{ fromJson(steps.extract_json.outputs.payloadJson).target_repo }}" >> $GITHUB_ENV
-        echo "TARGET_PATH=${{ fromJson(steps.extract_json.outputs.payloadJson).target_path }}" >> $GITHUB_ENV
-        echo "COMMIT_HEADER=${{ fromJson(steps.extract_json.outputs.payloadJson).commit_header }}" >> $GITHUB_ENV
-        echo "PR_NUMBER=${{ fromJson(steps.extract_json.outputs.payloadJson).pr_number }}" >> $GITHUB_ENV
+        echo "source-ref=${{ fromJson(steps.extract-json.outputs.payload-json).source_ref }}" >> $GITHUB_OUTPUT
+        echo "source-repo=${{ fromJson(steps.extract-json.outputs.payload-json).source_repo }}" >> $GITHUB_OUTPUT
+        echo "DEPLOY_ENV=${{ fromJson(steps.extract-json.outputs.payload-json).deploy_env }}" >> $GITHUB_ENV
+        echo "TARGET_REPO=${{ fromJson(steps.extract-json.outputs.payload-json).target_repo }}" >> $GITHUB_ENV
+        echo "TARGET_PATH=${{ fromJson(steps.extract-json.outputs.payload-json).target_path }}" >> $GITHUB_ENV
+        echo "COMMIT_HEADER=${{ fromJson(steps.extract-json.outputs.payload-json).commit_header }}" >> $GITHUB_ENV
+        echo "PR_NUMBER=${{ fromJson(steps.extract-json.outputs.payload-json).pr_number }}" >> $GITHUB_ENV
       # PR_NUMBER can and should be left empty for non-PR builds
       
     - name: Validate payload inputs
@@ -89,8 +91,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v7
       with:
-        ref: ${{ env.SOURCE_REF }}
-        repository: ${{ env.SOURCE_REPO }}
+        ref: ${{ steps.parse-json.outputs.SOURCE_REF }}
+        repository: ${{ steps.parse-json.outputs.SOURCE_REPO }}
         # Note: allow-unsafe-pr-checkout left unset to ensure that
         # any branch checkouts are only done on calls from pull_request.
 

@@ -34,18 +34,18 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Unpack payload inputs
-      id: extract_json
+      id: extract-json
       run: |
         payload='${{ runner.temp }}/pr_cd_payload.json'
         echo "payload_json=$payload" >> $GITHUB_OUTPUT
     
     - name: Parse payload inputs
       run: |
-        echo "BUILD_ID=${{ fromJson(steps.extract_json.outputs.payload_json).deploy_env }}" >> $GITHUB_ENV
-        echo "METADATA_JSON=${{ fromJson(steps.extract_json.outputs.payload_json) }}" >> $GITHUB_ENV
-        echo "TITLE_SOURCE=${{ fromJson(steps.extract_json.outputs.payload_json).title_source }}" >> $GITHUB_ENV
-        echo "TITLE_DEST=${{ fromJson(steps.extract_json.outputs.payload_json).title_dest }}" >> $GITHUB_ENV
-        echo "SHOULD_NOTIFY=${{ fromJson(steps.extract_json.outputs.payload_json).should_notify }}" >> $GITHUB_ENV
+        echo "BUILD_ID=${{ fromJson(steps.extract-json.outputs.payload_json).deploy_env }}" >> $GITHUB_ENV
+        echo "METADATA_JSON=${{ fromJson(steps.extract-json.outputs.payload_json) }}" >> $GITHUB_ENV
+        echo "TITLE_SOURCE=${{ fromJson(steps.extract-json.outputs.payload_json).title_source }}" >> $GITHUB_ENV
+        echo "TITLE_DEST=${{ fromJson(steps.extract-json.outputs.payload_json).title_dest }}" >> $GITHUB_ENV
+        echo "SHOULD_NOTIFY=${{ fromJson(steps.extract-json.outputs.payload_json).should_notify }}" >> $GITHUB_ENV
       
     - name: Validate and save payload metadata
       env:
@@ -97,17 +97,15 @@ jobs:
         path: ${{ runner.temp }}/build_${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}_metadata.json
 
   call-deployment:
-    runs-on: ubuntu-latest
+    uses: $/.github/workflows/cd_deploy_composite.yml
     needs: extract-config
     # TODO: Permissions
-    steps:
-    - name: Call deployment workflow
-      uses: $/.github/workflows/cd_deploy_composite
-      with:
-        build-id: ${{ needs.extract-config.outputs.build-id }}
-        metadata-id: ${{ needs.extract-config.outputs.metadata-id }}
-        title-source: ${{ needs.extract-config.outputs.title-source }}
-        title-dest: ${{ needs.extract-config.outputs.title-dest }}
+    with:
+      build-id: ${{ needs.extract-config.outputs.build-id }}
+      metadata-id: ${{ needs.extract-config.outputs.metadata-id }}
+      title-source: ${{ needs.extract-config.outputs.title-source }}
+      title-dest: ${{ needs.extract-config.outputs.title-dest }}
+    secrets: inherit
   
   notify:
     if: ${{ needs.extract-config.outputs.should-notify }}
