@@ -41,7 +41,7 @@ jobs:
     
     - name: Parse payload inputs
       run: |
-        echo "BUILD_ID=${{ fromJson(steps.extract-json.outputs.payload_json).deploy_env }}" >> $GITHUB_ENV
+        echo "BUILD_ID=${{ fromJson(steps.extract-json.outputs.payload_json).build_id }}" >> $GITHUB_ENV
         echo "METADATA_JSON=${{ fromJson(steps.extract-json.outputs.payload_json) }}" >> $GITHUB_ENV
         echo "TITLE_SOURCE=${{ fromJson(steps.extract-json.outputs.payload_json).title_source }}" >> $GITHUB_ENV
         echo "TITLE_DEST=${{ fromJson(steps.extract-json.outputs.payload_json).title_dest }}" >> $GITHUB_ENV
