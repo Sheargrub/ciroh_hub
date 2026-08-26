@@ -86,7 +86,6 @@ jobs:
       with:
         name: main_${{ env.DEPLOY_ENV }}_build
         path: ${{ runner.temp }}/main_${{ env.DEPLOY_ENV }}_build.json
-        archive: false
 
   build:
     uses: $/.github/workflows/ci_build.yml

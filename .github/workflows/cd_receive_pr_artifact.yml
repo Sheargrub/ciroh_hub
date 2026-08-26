@@ -93,7 +93,6 @@ jobs:
       with:
         name: build-metadata-${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}
         path: ${{ runner.temp }}/build_${{ env.DEPLOY_ENV }}${{ env.PR_NUMBER }}_metadata.json
-        archive: false
 
   call-deployment:
     uses: $/.github/workflows/cd_deploy_composite.yml

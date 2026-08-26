@@ -81,7 +81,6 @@ jobs:
       with:
         name: pr_${{ github.event.number }}_build
         path: ${{ runner.temp }}/pr_${{ github.event.number }}_build.json
-        archive: false
 
   build:
     uses: $/.github/workflows/ci_build.yml
@@ -130,6 +129,5 @@ jobs:
       with:
         name: pr-cd-payload
         path: ${{ runner.temp }}/pr_cd_payload.json
-        archive: false
 
   # For permission-management reasons, the next steps are handled in cd_receive_pr_artifact.
