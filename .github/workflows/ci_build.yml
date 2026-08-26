@@ -186,6 +186,7 @@ jobs:
     - name: Write build metadata to JSON
       id: define-metadata
       run: |
+        mkdir ${{ runner.temp }}/payloads
         echo {"deploy_env": "${DEPLOY_ENV}", "version": "${VERSION}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "short_hash": "${{ steps.short-sha.outputs.SHORT_SHA }}", "commit_hash": "${{ github.sha }}", "commit_header": "${COMMIT_HEADER}", "branch": "${{ github.ref_name }}", "pr_number": "${PR_NUMBER}"} > ${{ runner.temp }}/payloads/build_metadata.json
         echo ${{ runner.temp }}/payloads/build_metadata.json
 

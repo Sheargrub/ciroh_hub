@@ -72,6 +72,7 @@ jobs:
     # Establish build params
     - name: Output build parameters
       run: |
+        mkdir ${{ runner.temp }}/payloads
         echo {"deploy_env": "${DEPLOY_ENV}", "source_ref": "${SOURCE_REF}", "source_repo": "${SOURCE_REPO}", "target_repo": "${TARGET_REPO}", "target_path": "${TARGET_PATH}", "commit_header": "${COMMIT_HEADER}", "pr_number": "${{ github.event.number }}"} > ${{ runner.temp }}/payloads/build_params.json
         cat ${{ runner.temp }}/payloads/build_params.json
 
@@ -120,6 +121,7 @@ jobs:
     - name: Write deployment params to JSON
       id: output-params
       run: |
+        mkdir ${{ runner.temp }}/payloads
         echo {"build_id": "${BUILD_ID}", "metadata": ${PAYLOAD_JSON}, "title_source": "${TITLE_SOURCE}", "title_dest": "${TITLE_DEST}", "should_notify": ${SHOULD_NOTIFY}} > ${{ runner.temp }}/payloads/pr_cd_payload.json
         cat ${{ runner.temp }}/payloads/pr_cd_payload.json
 

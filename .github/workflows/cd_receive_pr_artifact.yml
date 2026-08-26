@@ -80,6 +80,7 @@ jobs:
 
         echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
 
+        mkdir ${{ runner.temp }}/payloads
         echo $METADATA_JSON > ${{ runner.temp }}/payloads/build_metadata.json
         echo ${{ runner.temp }}/payloads/build_metadata.json
 
