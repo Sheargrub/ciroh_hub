@@ -107,14 +107,14 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         artifact-ids: ${{ needs.build.outputs.metadata-id }}
-        path: payloads/build_metadata.json
+        path: ${{ runner.temp }}/build_metadata.json
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     # Get environment, version, etc from config payload
     - name: Unpack payload inputs
       id: extract-json
       run: |
-        payload='cat ./payloads/build_metadata.json'
+        payload='cat ${{ runner.temp }}/build_metadata.json'
         echo "PAYLOAD_JSON=$payload" >> $GITHUB_ENV
 
     - name: Write deployment params to JSON

@@ -36,7 +36,7 @@ jobs:
     - name: Unpack payload inputs
       id: extract-json
       run: |
-        payload='${{ runner.temp }}/pr_cd_payload.json'
+        payload='cat ${{ runner.temp }}/pr_cd_payload.json'
         echo "payload_json=$payload" >> $GITHUB_OUTPUT
     
     - name: Parse payload inputs
