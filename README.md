@@ -1,7 +1,5 @@
 # CIROH Hub
 
-(teleporting bread)
-
 CIROH Hub is constructed using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Repository
